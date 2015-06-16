@@ -29,10 +29,25 @@
 (function (exports) {
     'use strict';
 
+    exports.vector3dFromString = function(vecAsString) {
+        var parts = vecAsString.split(';');
+        if(parts.length < 3)
+            throw new Error('Too few arguments');
+        return new exports.Vector3d([
+            parseFloat(parts[0]),
+            parseFloat(parts[1]),
+            parseFloat(parts[2])
+        ]);
+    };
+
     exports.Vector3d = function(elements) {
-        
+        this._elements = elements;
         
     };
+    exports.Vector3d.prototype.toString = function() {
+        return '' + this._elements[0] + ';' + this._elements[1] + ';' + this._elements[2];
+    };
+    
 
     exports.Matrix3x3 = function(elements) {
         
