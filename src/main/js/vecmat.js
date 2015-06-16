@@ -70,6 +70,25 @@
             this._elements[2]*this._elements[2];
     };
 
+    exports.Vector3d.prototype.unit = function() {
+        var betrag = this.length();
+        if(betrag === 0.0)
+            return undefined;
+        return exports.vector3dFromElements(
+            this._elements[0] / betrag,
+            this._elements[1] / betrag,
+            this._elements[2] / betrag
+        );
+    };
+
+    exports.Vector3d.prototype.neg = function() {
+        return exports.vector3dFromElements(
+            -this._elements[0],
+            -this._elements[1],
+            -this._elements[2]
+        );
+    };
+
     exports.Vector3d.prototype.toString = function () {
         return '' + this._elements[0] + ';' + this._elements[1] + ';' + this._elements[2];
     };

@@ -57,5 +57,27 @@ describe('Vector3d', function () {
             assert.equal(expected, actual);
         });
     });
+
+    describe('#neg()', function () {
+        it('should return the negative vector', function () {
+            var v = vecmat.vector3dFromElements(1, 2, 3);
+
+            var actual = v.neg().toString();
+            var expected = '-1;-2;-3';
+
+            assert.equal(expected, actual);
+        });
+    });
+
+    describe('#unit()', function () {
+        it('should return the unit vector', function () {
+            var v = vecmat.vector3dFromElements(0, 0, 5);
+
+            var actual = v.unit().toString();
+            var expected = '0;0;1';
+
+            assert.equal(expected, actual);
+        });
+    });
 });
 
