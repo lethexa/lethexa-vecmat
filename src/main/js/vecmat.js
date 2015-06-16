@@ -51,6 +51,11 @@
                 sinPitchDist]);
     };
 
+    exports.vector3dFromElements = function (x,y,z)
+    {
+        return new exports.Vector3d([x,y,z]);
+    };
+
     exports.Vector3d = function (elements) {
         this._elements = elements;
 

@@ -35,7 +35,16 @@ describe('Vector3d', function () {
             assert.equal(expected, actual);
         });
     });
+
+    describe('#vector3dFromElements()', function () {
+        it('should return valid vector when providing 3 elements', function () {
+            var v = vecmat.vector3dFromElements(0, 0, 1);
+
+            var actual = v.toString();
+            var expected = '0;0;1';
+
+            assert.equal(expected, actual);
+        });
+    });
 });
 
-
-//vector3dFromPolar
