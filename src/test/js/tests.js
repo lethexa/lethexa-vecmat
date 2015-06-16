@@ -24,4 +24,18 @@ describe('Vector3d', function () {
             assert.equal(expected, actual);
         });
     });
+
+    describe('#vector3dFromPolar()', function () {
+        it('should return valid vector when providing polar coordinates', function () {
+            var v = vecmat.vector3dFromPolar(0, 0, 1);
+
+            var actual = v.toString();
+            var expected = '1;0;0';
+
+            assert.equal(expected, actual);
+        });
+    });
 });
+
+
+//vector3dFromPolar

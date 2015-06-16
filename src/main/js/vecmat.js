@@ -45,10 +45,10 @@
         var cosPitchDist = distance * Math.cos(pitch);
         var sinPitchDist = -distance * Math.sin(pitch);
 
-        return new exports.Vector3d(
+        return new exports.Vector3d([
                 cosPitchDist * Math.cos(yaw),
                 cosPitchDist * Math.sin(yaw),
-                sinPitchDist);
+                sinPitchDist]);
     };
 
     exports.Vector3d = function (elements) {
