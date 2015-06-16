@@ -29,9 +29,9 @@
 (function (exports) {
     'use strict';
 
-    exports.vector3dFromString = function(vecAsString) {
+    exports.vector3dFromString = function (vecAsString) {
         var parts = vecAsString.split(';');
-        if(parts.length < 3)
+        if (parts.length < 3)
             throw new Error('Too few arguments');
         return new exports.Vector3d([
             parseFloat(parts[0]),
@@ -40,17 +40,28 @@
         ]);
     };
 
-    exports.Vector3d = function(elements) {
-        this._elements = elements;
-        
+    exports.vector3dFromPolar = function (pitch, yaw, distance)
+    {
+        var cosPitchDist = distance * Math.cos(pitch);
+        var sinPitchDist = -distance * Math.sin(pitch);
+
+        return new exports.Vector3d(
+                cosPitchDist * Math.cos(yaw),
+                cosPitchDist * Math.sin(yaw),
+                sinPitchDist);
     };
-    exports.Vector3d.prototype.toString = function() {
+
+    exports.Vector3d = function (elements) {
+        this._elements = elements;
+
+    };
+    exports.Vector3d.prototype.toString = function () {
         return '' + this._elements[0] + ';' + this._elements[1] + ';' + this._elements[2];
     };
-    
 
-    exports.Matrix3x3 = function(elements) {
-        
+
+    exports.Matrix3x3 = function (elements) {
+
     };
 
 })(typeof exports === 'undefined' ? this.geo = {} : exports);
