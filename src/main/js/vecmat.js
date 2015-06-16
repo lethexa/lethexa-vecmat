@@ -29,6 +29,14 @@
 (function (exports) {
     'use strict';
 
+    exports.Vector3d = function(elements) {
+        
+        
+    };
+
+    exports.Matrix3x3 = function(elements) {
+        
+    };
 
 })(typeof exports === 'undefined' ? this.geo = {} : exports);
 
