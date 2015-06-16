@@ -46,5 +46,16 @@ describe('Vector3d', function () {
             assert.equal(expected, actual);
         });
     });
+
+    describe('#length()', function () {
+        it('should return the length of the vector', function () {
+            var v = vecmat.vector3dFromElements(0, 0, 1);
+
+            var actual = v.length();
+            var expected = 1;
+
+            assert.equal(expected, actual);
+        });
+    });
 });
 

@@ -58,8 +58,18 @@
 
     exports.Vector3d = function (elements) {
         this._elements = elements;
-
     };
+
+    exports.Vector3d.prototype.length = function() {
+        return Math.sqrt(this.lengthSquared());
+    };
+
+    exports.Vector3d.prototype.lengthSquared = function() {
+        return this._elements[0]*this._elements[0] +
+            this._elements[1]*this._elements[1]+
+            this._elements[2]*this._elements[2];
+    };
+
     exports.Vector3d.prototype.toString = function () {
         return '' + this._elements[0] + ';' + this._elements[1] + ';' + this._elements[2];
     };
