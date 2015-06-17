@@ -89,6 +89,17 @@
         );
     };
 
+    exports.Vector3d.prototype.pitch = function() {
+        var distXY = Math.sqrt(this._elements[0] * this._elements[0] + this._elements[1] * this._elements[1]);
+        var pitch = -Math.atan2(this._elements[2], distXY);
+        return pitch;
+    };
+
+    exports.Vector3d.prototype.yaw = function() {
+        var yaw = Math.atan2(this._elements[1], this._elements[0]);
+        return yaw;
+    };
+
     exports.Vector3d.prototype.toString = function () {
         return '' + this._elements[0] + ';' + this._elements[1] + ';' + this._elements[2];
     };

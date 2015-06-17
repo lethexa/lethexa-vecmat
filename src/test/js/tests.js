@@ -79,5 +79,27 @@ describe('Vector3d', function () {
             assert.equal(expected, actual);
         });
     });
+
+    describe('#pitch()', function () {
+        it('should return the pitch of the vector', function () {
+            var v = vecmat.vector3dFromPolar(45 * Math.PI / 180.0, 0, 5);
+
+            var actual = v.pitch();
+            var expected = 45 * Math.PI / 180.0;
+
+            assert.equal(expected, actual);
+        });
+    });
+
+    describe('#yaw()', function () {
+        it('should return the yaw of the vector', function () {
+            var v = vecmat.vector3dFromPolar(0, 45 * Math.PI / 180.0, 5);
+
+            var actual = v.yaw();
+            var expected = 45 * Math.PI / 180.0;
+
+            assert.equal(expected, actual);
+        });
+    });
 });
 
