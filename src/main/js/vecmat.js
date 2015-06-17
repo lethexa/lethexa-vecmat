@@ -137,14 +137,14 @@
     };
 
     exports.Vector3d.prototype.dot = function(b) {
-        return this.x * b.x + this.y * b.y + this.z * b.z;
+        return this._x * b._x + this._y * b._y + this._z * b._z;
     };
     
     exports.Vector3d.prototype.cross = function(b) {
         var x = this._y * b._z - this._z * b._y;
         var y = this._z * b._x - this._x * b._z;
         var z = this._x * b._y - this._y * b._x;
-        return new exports.Vector3d(x, y, z);
+        return new exports.Vector3d([x, y, z]);
     };
 
     exports.Vector3d.prototype.spat = function(b, c) {

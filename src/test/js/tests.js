@@ -142,5 +142,31 @@ describe('Vector3d', function () {
             assert.equal(expected.z(), actual.z());
         });
     });
+
+    describe('#dot()', function () {
+        it('should return the dot-product of two vectors', function () {
+            var v1 = vecmat.vector3dFromElements(1, 0, 0);
+            var v2 = vecmat.vector3dFromElements(0, 1, 0);
+
+            var actual = v1.dot(v2);
+            var expected = 0;
+
+            assert.equal(expected, actual);
+        });
+    });
+
+    describe('#cross()', function () {
+        it('should return the multiplication with a scalar', function () {
+            var v1 = vecmat.vector3dFromElements(1, 0, 0);
+            var v2 = vecmat.vector3dFromElements(0, 1, 0);
+
+            var actual = v1.cross(v2);
+            var expected = vecmat.vector3dFromElements(0, 0, 1);
+
+            assert.equal(expected.x(), actual.x());
+            assert.equal(expected.y(), actual.y());
+            assert.equal(expected.z(), actual.z());
+        });
+    });
 });
 
