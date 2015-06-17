@@ -148,7 +148,7 @@
     };
 
     exports.Vector3d.prototype.spat = function(b, c) {
-        return dot(b.cross(c));
+        return this.dot(b.cross(c));
     };
 
     exports.Vector3d.prototype.toArray = function() {

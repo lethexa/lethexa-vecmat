@@ -169,6 +169,32 @@ describe('Vector3d', function () {
         });
     });
 
+    describe('#spat()', function () {
+        it('should return the spatproduct of 3 vectors', function () {
+            var b = vecmat.vector3dFromElements(0, 1, 0);
+            var c = vecmat.vector3dFromElements(0, 1, 0);
+            var i = vecmat.vector3dFromElements(1, 0, 0);
+
+            var actual = i.spat(b, c);
+            var expected = 0.0;
+
+            assert.equal(expected, actual);
+        });
+    });
+
+    describe('#spat()', function () {
+        it('should return the volume of 3 vectors', function () {
+            var a = vecmat.vector3dFromElements(1, 0, 0);
+            var b = vecmat.vector3dFromElements(0, 1, 0);
+            var c = vecmat.vector3dFromElements(0, 0, 1);
+
+            var actual = a.spat(b, c);
+            var expected = 1.0;
+
+            assert.equal(expected, actual);
+        });
+    });
+
     describe('#toArray()', function () {
         it('should return the vector as array', function () {
             var v = vecmat.vector3dFromElements(1, 2, 3);
