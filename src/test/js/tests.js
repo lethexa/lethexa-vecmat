@@ -101,5 +101,46 @@ describe('Vector3d', function () {
             assert.equal(expected, actual);
         });
     });
+
+    describe('#add()', function () {
+        it('should return the addition of two vectors', function () {
+            var v1 = vecmat.vector3dFromElements(1, 2, 3);
+            var v2 = vecmat.vector3dFromElements(2, 4, 6);
+
+            var actual = v1.add(v2);
+            var expected = vecmat.vector3dFromElements(3, 6, 9);
+
+            assert.equal(expected.x(), actual.x());
+            assert.equal(expected.y(), actual.y());
+            assert.equal(expected.z(), actual.z());
+        });
+    });
+
+    describe('#sub()', function () {
+        it('should return the subtraction of two vectors', function () {
+            var v1 = vecmat.vector3dFromElements(1, 2, 3);
+            var v2 = vecmat.vector3dFromElements(2, 4, 6);
+
+            var actual = v2.sub(v1);
+            var expected = vecmat.vector3dFromElements(1, 2, 3);
+
+            assert.equal(expected.x(), actual.x());
+            assert.equal(expected.y(), actual.y());
+            assert.equal(expected.z(), actual.z());
+        });
+    });
+
+    describe('#sub()', function () {
+        it('should return the multiplication with a scalar', function () {
+            var v = vecmat.vector3dFromElements(1, 2, 3);
+
+            var actual = v.mul(10);
+            var expected = vecmat.vector3dFromElements(10, 20, 30);
+
+            assert.equal(expected.x(), actual.x());
+            assert.equal(expected.y(), actual.y());
+            assert.equal(expected.z(), actual.z());
+        });
+    });
 });
 

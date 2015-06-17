@@ -57,7 +57,21 @@
     };
 
     exports.Vector3d = function (elements) {
-        this._elements = elements;
+        this._x = elements[0];
+        this._y = elements[1];
+        this._z = elements[2];
+    };
+
+    exports.Vector3d.prototype.x = function() {
+        return this._x;
+    };
+
+    exports.Vector3d.prototype.y = function() {
+        return this._y;
+    };
+
+    exports.Vector3d.prototype.z = function() {
+        return this._z;
     };
 
     exports.Vector3d.prototype.length = function() {
@@ -65,9 +79,7 @@
     };
 
     exports.Vector3d.prototype.lengthSquared = function() {
-        return this._elements[0]*this._elements[0] +
-            this._elements[1]*this._elements[1]+
-            this._elements[2]*this._elements[2];
+        return this._x*this._x + this._y*this._y+ this._z*this._z;
     };
 
     exports.Vector3d.prototype.unit = function() {
@@ -75,33 +87,76 @@
         if(betrag === 0.0)
             return undefined;
         return exports.vector3dFromElements(
-            this._elements[0] / betrag,
-            this._elements[1] / betrag,
-            this._elements[2] / betrag
+            this._x / betrag,
+            this._y / betrag,
+            this._z / betrag
         );
     };
 
     exports.Vector3d.prototype.neg = function() {
         return exports.vector3dFromElements(
-            -this._elements[0],
-            -this._elements[1],
-            -this._elements[2]
+            -this._x,
+            -this._y,
+            -this._z
         );
     };
 
     exports.Vector3d.prototype.pitch = function() {
-        var distXY = Math.sqrt(this._elements[0] * this._elements[0] + this._elements[1] * this._elements[1]);
-        var pitch = -Math.atan2(this._elements[2], distXY);
+        var distXY = Math.sqrt(this._x * this._x + this._y * this._y);
+        var pitch = -Math.atan2(this._z, distXY);
         return pitch;
     };
 
     exports.Vector3d.prototype.yaw = function() {
-        var yaw = Math.atan2(this._elements[1], this._elements[0]);
+        var yaw = Math.atan2(this._y, this._x);
         return yaw;
     };
 
+    exports.Vector3d.prototype.add = function(v) {
+        return new exports.Vector3d([
+            this._x + v._x,
+            this._y + v._y,
+            this._z + v._z
+        ]);
+    };
+
+    exports.Vector3d.prototype.sub = function(v) {
+        return new exports.Vector3d([
+            this._x - v._x,
+            this._y - v._y,
+            this._z - v._z
+        ]);
+    };
+
+    exports.Vector3d.prototype.mul = function(s) {
+        return new exports.Vector3d([
+            this._x * s,
+            this._y * s,
+            this._z * s
+        ]);
+    };
+
+    exports.Vector3d.prototype.dot = function(b) {
+        return this.x * b.x + this.y * b.y + this.z * b.z;
+    };
+    
+    exports.Vector3d.prototype.cross = function(b) {
+        var x = this._y * b._z - this._z * b._y;
+        var y = this._z * b._x - this._x * b._z;
+        var z = this._x * b._y - this._y * b._x;
+        return new exports.Vector3d(x, y, z);
+    };
+
+    exports.Vector3d.prototype.spat = function(b, c) {
+        return dot(b.cross(c));
+    };
+
+    exports.Vector3d.prototype.toArray = function() {
+        return [this._x, this._y, this._z];
+    };
+
     exports.Vector3d.prototype.toString = function () {
-        return '' + this._elements[0] + ';' + this._elements[1] + ';' + this._elements[2];
+        return '' + this._x + ';' + this._y + ';' + this._z;
     };
 
 
