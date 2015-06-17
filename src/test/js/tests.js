@@ -168,5 +168,18 @@ describe('Vector3d', function () {
             assert.equal(expected.z(), actual.z());
         });
     });
+
+    describe('#toArray()', function () {
+        it('should return the vector as array', function () {
+            var v = vecmat.vector3dFromElements(1, 2, 3);
+
+            var actual = v.toArray();
+            var expected = [1,2,3];
+
+            assert.equal(expected[0], actual[0]);
+            assert.equal(expected[1], actual[1]);
+            assert.equal(expected[2], actual[2]);
+        });
+    });
 });
 
