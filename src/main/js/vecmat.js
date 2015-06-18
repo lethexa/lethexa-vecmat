@@ -166,8 +166,43 @@
     };
 
 
-    exports.Matrix3x3 = function (elements) {
 
+
+
+    exports.makeUnitMatrix3x3 = function() {
+        return new exports.Matrix3x3([
+                [1.0, 0.0, 0.0],
+                [0.0, 1.0, 0.0],
+                [0.0, 0.0, 1.0]
+        ]);
+    };
+
+    exports.makeXRotation3x3 = function(angle) {
+        var si_x = Math.sin(angle);
+        var co_x = Math.cos(angle);
+
+        return new exports.Matrix3x3([
+                [1.0, 0.0, 0.0],
+                [0.0, co_x, -si_x],
+                [0.0, si_x, co_x]
+        ]);
+    };
+
+
+    exports.Matrix3x3 = function (elements) {
+        this._elements = elements;
+    };
+
+    exports.Matrix3x3.prototype.isEqualTo = function(m) {
+        var x,y;
+        for(y = 0;y<this._elements.length;y++) {
+            for(x = 0;x<this._elements[y].length;x++) {
+                if(this._elements[y][x] !== m._elements[y][x]) {
+                    return false;
+                }
+            }
+        }
+        return true;
     };
 
 })(typeof exports === 'undefined' ? this.geo = {} : exports);

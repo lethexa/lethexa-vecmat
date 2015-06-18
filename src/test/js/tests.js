@@ -209,3 +209,18 @@ describe('Vector3d', function () {
     });
 });
 
+
+
+
+
+
+describe('Matrix3x3', function () {
+    describe('#makeXRotation3x3()', function () {
+        it('should return valid rotationmatrix for given angle', function () {
+            var actual = vecmat.makeXRotation3x3(0.0);
+            var expected = vecmat.makeUnitMatrix3x3();
+
+            assert.equal(true, actual.isEqualTo(expected));
+        });
+    });
+});
