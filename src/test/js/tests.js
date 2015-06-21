@@ -212,15 +212,196 @@ describe('Vector3d', function () {
 
 
 
-
-
 describe('Matrix3x3', function () {
-    describe('#makeXRotation3x3()', function () {
-        it('should return valid rotationmatrix for given angle', function () {
-            var actual = vecmat.makeXRotation3x3(0.0);
-            var expected = vecmat.makeUnitMatrix3x3();
+    describe('#mul()', function () {
+        it('multiply a matrix with a skalar', function () {
+            var m = vecmat.matrix3x3FromArray([[1,0,0],[0,1,0],[0,0,1]]);
+            var s = 2;
+            
+            var actual = m.mul(s).toString();
+            var expected = '2,0,0,\n0,2,0,\n0,0,2,\n';
+            
+            assert.equal(expected, actual);
+        });
+    });
 
-            assert.equal(true, actual.isEqualTo(expected));
+    describe('#mul()', function () {
+        it('multiply two matrices', function () {
+            var m1 = vecmat.matrix3x3FromArray([[1,0,0],[0,1,0],[0,0,1]]);
+            var m2 = vecmat.matrix3x3FromArray([[1,0,0],[0,1,0],[0,0,1]]);
+            
+            var actual = m1.mul(m2).toString();
+            var expected = '1,0,0,\n0,1,0,\n0,0,1,\n';
+            
+            assert.equal(expected, actual);
+        });
+    });
+
+    describe('#mul()', function () {
+        it('multiply two matrices', function () {
+            var m1 = vecmat.matrix3x3FromArray([[1,0,0],[0,1,0],[0,0,1]]);
+            var m2 = vecmat.matrix3x3FromArray([[-1,0,0],[0,-1,0],[0,0,-1]]);
+            
+            var actual = m1.mul(m2).toString();
+            var expected = '-1,0,0,\n0,-1,0,\n0,0,-1,\n';
+            
+            assert.equal(expected, actual);
+        });
+    });
+
+    describe('#transpose()', function () {
+        it('transpose a matrices', function () {
+            var m = vecmat.matrix3x3FromArray([[1,2,3],[4,5,6],[7,8,9]]);
+            
+            var actual = m.transpose().toString();
+            var expected = '1,4,7,\n2,5,8,\n3,6,9,\n';
+            
+            assert.equal(expected, actual);
+        });
+    });
+
+    describe('#det()', function () {
+        it('calculates the determinante of a matrices', function () {
+            var m = vecmat.matrix3x3FromArray([[1,0,0],[0,1,0],[0,0,1]]);
+            
+            var actual = m.det();
+            var expected = 1;
+            
+            assert.equal(expected, actual);
+        });
+    });
+
+    describe('#phi()', function () {
+        it('calculates phi-angle of a matrices', function () {
+            var m = vecmat.matrix3x3FromArray([[1,0,0],[0,1,0],[0,0,1]]);
+            
+            var actual = m.phi();
+            var expected = 0;
+            
+            assert.equal(expected, actual);
+        });
+    });
+
+    describe('#theta()', function () {
+        it('calculates theta-angle of a matrices', function () {
+            var m = vecmat.matrix3x3FromArray([[1,0,0],[0,1,0],[0,0,1]]);
+            
+            var actual = m.theta();
+            var expected = 0;
+            
+            assert.equal(expected, actual);
+        });
+    });
+
+    describe('#psi()', function () {
+        it('calculates psi-angle of a matrices', function () {
+            var m = vecmat.matrix3x3FromArray([[1,0,0],[0,1,0],[0,0,1]]);
+            
+            var actual = m.psi();
+            var expected = 0;
+            
+            assert.equal(expected, actual);
+        });
+    });
+
+
+    describe('#makeXRotation3x3()', function () {
+        it('Creates a rotation-matrix around the x-axis', function () {
+            var m = vecmat.makeXRotation3x3(0.0);
+            
+            var actual = m.toString();
+            var expected = vecmat.makeUnitMatrix3x3().toString();
+            
+            assert.equal(expected, actual);
+        });
+    });
+
+    describe('#makeYRotation3x3()', function () {
+        it('Creates a rotation-matrix around the y-axis', function () {
+            var m = vecmat.makeYRotation3x3(0.0);
+            
+            var actual = m.toString();
+            var expected = vecmat.makeUnitMatrix3x3().toString();
+            
+            assert.equal(expected, actual);
+        });
+    });
+
+    describe('#makeZRotation3x3()', function () {
+        it('Creates a rotation-matrix around the z-axis', function () {
+            var m = vecmat.makeZRotation3x3(0.0);
+            
+            var actual = m.toString();
+            var expected = vecmat.makeUnitMatrix3x3().toString();
+            
+            assert.equal(expected, actual);
+        });
+    });
+
+    describe('#makeScale3x3()', function () {
+        it('Creates a rotation-matrix around the z-axis', function () {
+            var m = vecmat.makeScale3x3(1.0, 2.0, 3.0);
+
+            var actual = m.toString();
+            var expected = vecmat.matrix3x3FromArray([[1,0,0],[0,2,0],[0,0,3]]).toString();
+            
+            assert.equal(expected, actual);
+        });
+    });
+
+    describe('#toGlobalMatrix3x3()', function () {
+        it('Creates a rotation-matrix from 3 angles', function () {
+            var m = vecmat.toGlobalMatrix3x3(0.0, 0.0, 0.0);
+
+            var actual = m.toString();
+            var expected = vecmat.matrix3x3FromArray([[1,0,0],[0,1,0],[0,0,1]]).toString();
+            
+            assert.equal(expected, actual);
+        });
+    });
+
+    describe('#toLocalMatrix3x3()', function () {
+        it('Creates a rotation-matrix from 3 angles', function () {
+            var m = vecmat.toLocalMatrix3x3(0.0, 0.0, 0.0);
+
+            var actual = m.toString();
+            var expected = vecmat.matrix3x3FromArray([[1,0,0],[0,1,0],[0,0,1]]).toString();
+            
+            assert.equal(expected, actual);
+        });
+    });
+
+    describe('#toLocalMatrix3x3()', function () {
+        it('Multiplication of toLocal- and toGlobal gives unitmatrix', function () {
+            var g = vecmat.toGlobalMatrix3x3(Math.PI, Math.PI, 0);
+            var l = vecmat.toLocalMatrix3x3(-Math.PI, -Math.PI, 0);
+
+            var actual = g.mul(l).toString();
+            var expected = vecmat.matrix3x3FromArray([[1,0,0],[0,1,0],[0,0,1]]).toString();
+            
+            assert.equal(expected, actual);
+        });
+    });
+
+    describe('#toString()', function () {
+        it('should return a string reprentation of a matrix', function () {
+            var m = vecmat.makeUnitMatrix3x3();
+            
+            var actual = m.toString();
+            var expected = '1,0,0,\n0,1,0,\n0,0,1,\n';
+            
+            assert.equal(expected, actual);
+        });
+    });
+
+    describe('#toString()', function () {
+        it('should return a string reprentation of a matrix', function () {
+            var m = vecmat.makeNullMatrix3x3();
+            
+            var actual = m.toString();
+            var expected = '0,0,0,\n0,0,0,\n0,0,0,\n';
+            
+            assert.equal(expected, actual);
         });
     });
 });

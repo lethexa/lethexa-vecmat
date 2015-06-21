@@ -34,10 +34,10 @@
         if (parts.length < 3)
             throw new Error('Too few arguments');
         return new exports.Vector3d(
-            parseFloat(parts[0]),
-            parseFloat(parts[1]),
-            parseFloat(parts[2])
-        );
+                parseFloat(parts[0]),
+                parseFloat(parts[1]),
+                parseFloat(parts[2])
+                );
     };
 
     exports.vector3dFromPolar = function (pitch, yaw, distance) {
@@ -45,9 +45,9 @@
         var sinPitchDist = -distance * Math.sin(pitch);
 
         return new exports.Vector3d(
-            cosPitchDist * Math.cos(yaw),
-            cosPitchDist * Math.sin(yaw),
-            sinPitchDist);
+                cosPitchDist * Math.cos(yaw),
+                cosPitchDist * Math.sin(yaw),
+                sinPitchDist);
     };
 
     exports.vector3dFromArray = function (elements) {
@@ -120,26 +120,26 @@
 
     exports.Vector3d.prototype.add = function (v) {
         return new exports.Vector3d(
-            this._x + v._x,
-            this._y + v._y,
-            this._z + v._z
-        );
+                this._x + v._x,
+                this._y + v._y,
+                this._z + v._z
+                );
     };
 
     exports.Vector3d.prototype.sub = function (v) {
         return new exports.Vector3d(
-            this._x - v._x,
-            this._y - v._y,
-            this._z - v._z
-        );
+                this._x - v._x,
+                this._y - v._y,
+                this._z - v._z
+                );
     };
 
     exports.Vector3d.prototype.mul = function (s) {
         return new exports.Vector3d(
-            this._x * s,
-            this._y * s,
-            this._z * s
-        );
+                this._x * s,
+                this._y * s,
+                this._z * s
+                );
     };
 
     exports.Vector3d.prototype.dot = function (b) {
@@ -169,40 +169,186 @@
 
 
 
-    exports.makeUnitMatrix3x3 = function() {
+
+    exports.matrix3x3FromArray = function (array) {
+        return new exports.Matrix3x3(array);
+    };
+
+    exports.makeUnitMatrix3x3 = function () {
         return new exports.Matrix3x3([
-                [1.0, 0.0, 0.0],
-                [0.0, 1.0, 0.0],
-                [0.0, 0.0, 1.0]
+            [1, 0, 0],
+            [0, 1, 0],
+            [0, 0, 1]
         ]);
     };
 
-    exports.makeXRotation3x3 = function(angle) {
+    exports.makeNullMatrix3x3 = function () {
+        return new exports.Matrix3x3([
+            [0, 0, 0],
+            [0, 0, 0],
+            [0, 0, 0]
+        ]);
+    };
+
+    exports.toGlobalMatrix3x3 = function (phi, theta, psi) {
+        var mRotToGlobal = exports.makeUnitMatrix3x3();
+        if (phi !== 0.0)
+            mRotToGlobal = exports.makeXRotation3x3(phi).mul(mRotToGlobal);
+        if (theta !== 0.0)
+            mRotToGlobal = exports.makeYRotation3x3(theta).mul(mRotToGlobal);
+        if (psi !== 0.0)
+            mRotToGlobal = exports.makeZRotation3x3(psi).mul(mRotToGlobal);
+        return mRotToGlobal;
+    };
+
+    exports.toLocalMatrix3x3 = function (phi, theta, psi) {
+        var mRotToGlobal = exports.makeUnitMatrix3x3();
+        if (psi !== 0.0)
+            mRotToGlobal = exports.makeZRotation3x3(psi).mul(mRotToGlobal);
+        if (theta !== 0.0)
+            mRotToGlobal = exports.makeYRotation3x3(theta).mul(mRotToGlobal);
+        if (phi !== 0.0)
+            mRotToGlobal = exports.makeXRotation3x3(phi).mul(mRotToGlobal);
+        return mRotToGlobal;
+    };
+
+    exports.makeXRotation3x3 = function (angle) {
         var si_x = Math.sin(angle);
         var co_x = Math.cos(angle);
-
         return new exports.Matrix3x3([
-                [1.0, 0.0, 0.0],
-                [0.0, co_x, -si_x],
-                [0.0, si_x, co_x]
+            [1.0, 0.0, 0.0],
+            [0.0, co_x, -si_x],
+            [0.0, si_x, co_x]
         ]);
     };
 
-
-    exports.Matrix3x3 = function (elements) {
-        this._elements = elements;
+    exports.makeYRotation3x3 = function (angle) {
+        var si_y = Math.sin(angle);
+        var co_y = Math.cos(angle);
+        return new exports.Matrix3x3([
+            [co_y, 0.0, si_y],
+            [0.0, 1.0, 0.0],
+            [-si_y, 0.0, co_y]
+        ]);
     };
 
-    exports.Matrix3x3.prototype.isEqualTo = function(m) {
-        var x,y;
-        for(y = 0;y<this._elements.length;y++) {
-            for(x = 0;x<this._elements[y].length;x++) {
-                if(this._elements[y][x] !== m._elements[y][x]) {
+    exports.makeZRotation3x3 = function (angle) {
+        var si_z = Math.sin(angle);
+        var co_z = Math.cos(angle);
+        return new exports.Matrix3x3([
+            [co_z, -si_z, 0.0],
+            [si_z, co_z, 0.0],
+            [0.0, 0.0, 1.0]
+        ]);
+    };
+
+    exports.makeScale3x3 = function (scaleX, scaleY, scaleZ) {
+        return new exports.Matrix3x3([
+            [scaleX, 0.0, 0.0],
+            [0.0, scaleY, 0.0],
+            [0.0, 0.0, scaleZ]
+        ]);
+    };
+
+    exports.Matrix3x3 = function (elements) {
+        if (elements.length < 3)
+            throw new Error('vertical array to short');
+        this._elements = elements;
+
+        this.e11 = this._elements[0][0];
+        this.e12 = this._elements[0][1];
+        this.e13 = this._elements[0][2];
+
+        this.e21 = this._elements[1][0];
+        this.e22 = this._elements[1][1];
+        this.e23 = this._elements[1][2];
+
+        this.e31 = this._elements[2][0];
+        this.e32 = this._elements[2][1];
+        this.e33 = this._elements[2][2];
+    };
+
+    exports.Matrix3x3.prototype.isEqualTo = function (m) {
+        var x, y;
+        for (y = 0; y < this._elements.length; y++) {
+            for (x = 0; x < this._elements[y].length; x++) {
+                if (this._elements[y][x] !== m._elements[y][x]) {
                     return false;
                 }
             }
         }
         return true;
+    };
+
+    exports.Matrix3x3.prototype.mul = function (s) {
+        if (typeof (s) === 'number') {
+            return new exports.Matrix3x3([
+                [this.e11 * s, this.e12 * s, this.e13 * s],
+                [this.e21 * s, this.e22 * s, this.e23 * s],
+                [this.e31 * s, this.e32 * s, this.e33 * s]
+            ]);
+        }
+        else {
+            var m2 = s;
+            return new exports.Matrix3x3([
+                [
+                    this.e11 * m2.e11 + this.e12 * m2.e21 + this.e13 * m2.e31,
+                    this.e11 * m2.e12 + this.e12 * m2.e22 + this.e13 * m2.e32,
+                    this.e11 * m2.e13 + this.e12 * m2.e23 + this.e13 * m2.e33
+                ],
+                [
+                    this.e21 * m2.e11 + this.e22 * m2.e21 + this.e23 * m2.e31,
+                    this.e21 * m2.e12 + this.e22 * m2.e22 + this.e23 * m2.e32,
+                    this.e21 * m2.e13 + this.e22 * m2.e23 + this.e23 * m2.e33
+                ],
+                [
+                    this.e31 * m2.e11 + this.e32 * m2.e21 + this.e33 * m2.e31,
+                    this.e31 * m2.e12 + this.e32 * m2.e22 + this.e33 * m2.e32,
+                    this.e31 * m2.e13 + this.e32 * m2.e23 + this.e33 * m2.e33
+                ]
+            ]);
+        }
+    };
+
+    exports.Matrix3x3.prototype.transpose = function () {
+        return new exports.Matrix3x3([
+            [this.e11, this.e21, this.e31],
+            [this.e12, this.e22, this.e32],
+            [this.e13, this.e23, this.e33]
+        ]);
+    };
+
+    exports.Matrix3x3.prototype.det = function () {
+        return this.e11 * this.e22 * this.e33 +
+                this.e12 * this.e23 * this.e31 +
+                this.e13 * this.e21 * this.e32 -
+                this.e13 * this.e22 * this.e31 -
+                this.e11 * this.e23 * this.e32 -
+                this.e12 * this.e21 * this.e33;
+    };
+
+    exports.Matrix3x3.prototype.phi = function () {
+        return Math.atan2(this.e32, this.e33);
+    };
+
+    exports.Matrix3x3.prototype.theta = function () {
+        return Math.asin(-this.e31);
+    };
+
+    exports.Matrix3x3.prototype.psi = function () {
+        return Math.atan2(this.e21, this.e11);
+    };
+
+
+    exports.Matrix3x3.prototype.toString = function () {
+        var result = '';
+        this._elements.forEach(function (rowsArray) {
+            rowsArray.forEach(function (value) {
+                result += '' + value + ',';
+            });
+            result += '\n';
+        });
+        return result;
     };
 
 })(typeof exports === 'undefined' ? this.geo = {} : exports);
