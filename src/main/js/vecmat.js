@@ -56,6 +56,18 @@
     };
 
 
+    exports.makeUnitXVector3d = function () {
+        return new exports.Vector3d(1.0, 0.0, 0.0);
+    };
+
+    exports.makeUnitYVector3d = function () {
+        return new exports.Vector3d(0.0, 1.0, 0.0);
+    };
+
+    exports.makeUnitZVector3d = function () {
+        return new exports.Vector3d(0.0, 0.0, 1.0);
+    };
+
     exports.vector3dFromString = function (vecAsString) {
         var parts = vecAsString.split(';');
         if (parts.length < 3)
