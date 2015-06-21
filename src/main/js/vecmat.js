@@ -400,5 +400,5 @@
         return result;
     };
 
-})(typeof exports === 'undefined' ? this.geo = {} : exports);
+})(typeof exports === 'undefined' ? this.vecmat = {} : exports);
 
