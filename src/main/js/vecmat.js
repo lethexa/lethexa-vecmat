@@ -30,43 +30,32 @@
     'use strict';
 
 
-    exports.intersectionAtPositiveYAxis2d = function(v1, v2) {
+    exports.intersectionAtPositiveYAxis2d = function (v1, v2) {
         if (v1._y < 0.0 && v2._y < 0.0)
             return undefined; // Keine Lösung, hinter mir
         if (v1._x < 0.0 && v2._x < 0.0)
             return undefined; // Keine Lösung
         if (v1._x > 0.0 && v2._x > 0.0)
             return undefined; // Keine Lösung
-        var mz = v2._y - v1._y;   
+        var mz = v2._y - v1._y;
         var mn = v2._x - v1._x;
         var y;
-        if(mn === 0.0) {
+        if (mn === 0.0) {
             // Parallel zur y-achse
             y = (v2._y < v1._y ? v2._y : v1._y);
-            if(y < 0.0)
+            if (y < 0.0)
                 return undefined;
             return exports.vector3dFromElements(0.0, y, 0.0);
         }
         else {
             y = (v1._y + (mz / mn) * (0.0 - v1._x));
-            if(y < 0.0)
+            if (y < 0.0)
                 return undefined;
             return exports.vector3dFromElements(0.0, y, 0.0);
         }
     };
 
 
-    exports.makeUnitXVector3d = function () {
-        return new exports.Vector3d(1.0, 0.0, 0.0);
-    };
-
-    exports.makeUnitYVector3d = function () {
-        return new exports.Vector3d(0.0, 1.0, 0.0);
-    };
-
-    exports.makeUnitZVector3d = function () {
-        return new exports.Vector3d(0.0, 0.0, 1.0);
-    };
 
     exports.vector3dFromString = function (vecAsString) {
         var parts = vecAsString.split(';');
@@ -202,6 +191,27 @@
 
     exports.Vector3d.prototype.toString = function () {
         return '' + this._x + ';' + this._y + ';' + this._z;
+    };
+
+    var vec3UnitX = Object.freeze(new exports.Vector3d(1.0, 0.0, 0.0));
+    var vec3UnitY = Object.freeze(new exports.Vector3d(0.0, 1.0, 0.0));
+    var vec3UnitZ = Object.freeze(new exports.Vector3d(0.0, 0.0, 1.0));
+    var vec3Null = Object.freeze(new exports.Vector3d(0.0, 0.0, 0.0));
+
+    exports.makeUnitXVector3d = function () {
+        return vec3UnitX;
+    };
+
+    exports.makeUnitYVector3d = function () {
+        return vec3UnitY;
+    };
+
+    exports.makeUnitZVector3d = function () {
+        return vec3UnitZ;
+    };
+
+    exports.makeNullVector3d = function () {
+        return vec3Null;
     };
 
 
