@@ -29,6 +29,33 @@
 (function (exports) {
     'use strict';
 
+
+    exports.intersectionAtPositiveYAxis2d = function(v1, v2) {
+        if (v1._y < 0.0 && v2._y < 0.0)
+            return undefined; // Keine Lösung, hinter mir
+        if (v1._x < 0.0 && v2._x < 0.0)
+            return undefined; // Keine Lösung
+        if (v1._x > 0.0 && v2._x > 0.0)
+            return undefined; // Keine Lösung
+        var mz = v2._y - v1._y;   
+        var mn = v2._x - v1._x;
+        var y;
+        if(mn === 0.0) {
+            // Parallel zur y-achse
+            y = (v2._y < v1._y ? v2._y : v1._y);
+            if(y < 0.0)
+                return undefined;
+            return exports.vector3dFromElements(0.0, y, 0.0);
+        }
+        else {
+            y = (v1._y + (mz / mn) * (0.0 - v1._x));
+            if(y < 0.0)
+                return undefined;
+            return exports.vector3dFromElements(0.0, y, 0.0);
+        }
+    };
+
+
     exports.vector3dFromString = function (vecAsString) {
         var parts = vecAsString.split(';');
         if (parts.length < 3)

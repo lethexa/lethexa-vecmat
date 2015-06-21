@@ -14,6 +14,21 @@ describe('Array', function () {
 
 
 describe('Vector3d', function () {
+    
+    describe('#intersectionAtPositiveYAxis2d()', function () {
+        it('should return intesectionpoint at y-axis', function () {
+            var v1 = vecmat.vector3dFromString('-1;2;0');
+            var v2 = vecmat.vector3dFromString('1;4;0');
+            
+            var actual = vecmat.intersectionAtPositiveYAxis2d(v1, v2).toString();
+            var expected = '0;3;0';
+            
+            assert.equal(expected, actual);
+        });
+    });
+
+    
+    
     describe('#vector3dFromString()', function () {
         it('should return valid vector when parsing from string', function () {
             var v = vecmat.vector3dFromString('1;2;3');
