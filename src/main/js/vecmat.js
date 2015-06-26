@@ -337,7 +337,7 @@
                 [this.e31 * s, this.e32 * s, this.e33 * s]
             ]);
         }
-        else {
+        else if (s instanceof exports.Matrix3x3) {
             var m2 = s;
             return new exports.Matrix3x3([
                 [
@@ -355,6 +355,14 @@
                     this.e31 * m2.e12 + this.e32 * m2.e22 + this.e33 * m2.e32,
                     this.e31 * m2.e13 + this.e32 * m2.e23 + this.e33 * m2.e33
                 ]
+            ]);
+        }
+        else if (s instanceof exports.Vector3d) {
+            var u = s;
+            return new exports.Vector3d([           
+                    this.e11 * u.x() + this.e12 * u.y() + this.e13 * u.z(),
+                    this.e21 * u.x() + this.e22 * u.y() + this.e23 * u.z(),
+                    this.e31 * u.x() + this.e32 * u.y() + this.e33 * u.z()
             ]);
         }
     };
