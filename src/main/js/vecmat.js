@@ -359,7 +359,7 @@
         }
         else if (s instanceof exports.Vector3d) {
             var u = s;
-            return new exports.Vector3d([           
+            return exports.vector3dFromArray([           
                     this.e11 * u.x() + this.e12 * u.y() + this.e13 * u.z(),
                     this.e21 * u.x() + this.e22 * u.y() + this.e23 * u.z(),
                     this.e31 * u.x() + this.e32 * u.y() + this.e33 * u.z()

@@ -264,17 +264,17 @@ describe('Matrix3x3', function () {
         });
     });
 
-//    describe('#mul()', function () {
-//        it('multiply a matrix and a vector', function () {
-//            var m1 = vecmat.matrix3x3FromArray([[1,0,0],[0,1,0],[0,0,1]]);
-//            var v2 = vecmat.vector3dFromArray([1,0,0]);
-//            
-//            var actual = m1.mul(v2).toString();
-//            var expected = '1;0;0';
-//            
-//            assert.equal(expected, actual);
-//        });
-//    });
+    describe('#mul()', function () {
+        it('multiply a matrix and a vector', function () {
+            var m1 = vecmat.makeUnitMatrix3x3();
+            var v2 = vecmat.vector3dFromArray([1,0,0]);
+            
+            var actual = m1.mul(v2).toString();
+            var expected = '1;0;0';
+            
+            assert.equal(expected, actual);
+        });
+    });
 
     describe('#transpose()', function () {
         it('transpose a matrices', function () {
