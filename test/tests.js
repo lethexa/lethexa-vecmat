@@ -1,5 +1,5 @@
 var assert = require("assert");
-var vecmat = require("../../main/js/vecmat.js");
+var vecmat = require("../lib/vecmat.js");
 
 
 describe('Array', function () {

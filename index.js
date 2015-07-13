@@ -23,3 +23,12 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
+
+/* global module, __dirname */
+
+/**
+ * A module for Vector/matrix calculations
+ * @module vecmat
+ */
+module.exports = require('./lib/vecmat');
+ 
