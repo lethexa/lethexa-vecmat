@@ -1,5 +1,5 @@
 {
-  "name": "vecmat",
+  "name": "lethexa-vecmat",
   "version": "0.0.1",
   "description": "Vector/matrix calculations",
   "main": "index.js",
