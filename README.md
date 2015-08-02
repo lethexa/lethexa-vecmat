@@ -19,3 +19,11 @@ Usage
 	var vec4 = new vecmat.Vector3d(1.0, 2.0, 3.0);
 
 	var vec5 = vec1.add(vec2);
+
+
+Contributors
+------------
+
+* Tim Leerhoff <tleerhof@web.de>
+
+
