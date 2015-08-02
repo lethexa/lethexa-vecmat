@@ -16,4 +16,6 @@ Usage
 
 	var vec3 = vecmat.vector3dFromArray([1.0, 2.0, 3.0]);
 
+	var vec4 = new vecmat.Vector3d(1.0, 2.0, 3.0);
 
+	var vec5 = vec1.add(vec2);
