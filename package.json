@@ -1,6 +1,6 @@
 {
   "name": "lethexa-vecmat",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Vector/matrix calculations",
   "main": "index.js",
   "author":  {
