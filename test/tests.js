@@ -473,6 +473,28 @@ describe('Quat', function () {
         });
     });
 
+    describe('#lengthSquared()', function () {
+        it('should return the length-squared of the quaternion', function () {
+	    var q = new vecmat.Quat(2.0, new vecmat.Vector3d(2.0, 2.0, 2.0) );
+		
+            var result = q.lengthSquared();
+            var expected = 16;
+
+            assert.deepEqual(expected, result);
+        });
+    });
+
+    describe('#length()', function () {
+        it('should return the length of the quaternion', function () {
+	    var q = new vecmat.Quat(2.0, new vecmat.Vector3d(2.0, 2.0, 2.0) );
+		
+            var result = q.length();
+            var expected = 4;
+
+            assert.deepEqual(expected, result);
+        });
+    });
+
 
     describe('#toString()', function () {
         it('should return a valid string representation', function () {
