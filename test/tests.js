@@ -432,3 +432,21 @@ describe('Matrix3x3', function () {
         });
     });
 });
+
+
+
+describe('Quat', function () {
+    describe('#add()', function () {
+        it('should return the sum of the quaternions', function () {
+	    var q1 = new vecmat.Quat(1.0, new vecmat.Vector3d(1.0, 1.0, 1.0) );
+	    var q2 = new vecmat.Quat(2.0, new vecmat.Vector3d(2.0, 2.0, 2.0) );
+		
+            var result = q1.add(q2);
+            var expected = new vecmat.Quat(3.0, new vecmat.Vector3d(3.0, 3.0, 3.0));
+
+            assert.deepEqual(expected, result);
+        });
+    });
+});
+
+
