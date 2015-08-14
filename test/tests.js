@@ -516,6 +516,18 @@ describe('Quat', function () {
             assert.deepEqual(expected, result);
         });
     });
+    
+    describe('#unit()', function () {
+        it('should return a unit-length quaternion', function () {
+	    var q = new vecmat.Quat(16.0, new vecmat.Vector3d(0.0, 0.0, 0.0) );
+		
+            var result = q.unit();
+            var expected = new vecmat.Quat(1.0, new vecmat.Vector3d(0.0, 0.0, 0.0));
+
+            assert.deepEqual(expected, result);
+        });
+    });
+
 
 
     describe('#toString()', function () {
