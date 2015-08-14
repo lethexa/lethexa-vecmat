@@ -616,6 +616,37 @@ describe('Quat', function () {
     });
 
 
+    describe('#slerpTo()', function () {
+        it('should return the first quat, when dt = 0', function () {
+            var angle = 45.0 * Math.PI / 180.0;
+            var axis = vecmat.makeUnitZVector3d();
+            var q1 = vecmat.quatFromRotation(0, axis);
+            var q2 = vecmat.quatFromRotation(angle, axis);
+            var dt = 0.0;
+
+	    var result = q1.slerpTo(q2, dt);
+	    var expected = q1;
+		
+            assert.deepEqual(expected, result);
+        });
+    });
+
+    describe('#slerpTo()', function () {
+        it('should return the first quat, when dt = 1', function () {
+            var angle = 45.0 * Math.PI / 180.0;
+            var axis = vecmat.makeUnitZVector3d();
+            var q1 = vecmat.quatFromRotation(0, axis);
+            var q2 = vecmat.quatFromRotation(angle, axis);
+            var dt = 1.0;
+
+	    var result = q1.slerpTo(q2, dt);
+	    var expected = q2;
+		
+            assert.deepEqual(expected, result);
+        });
+    });
+
+
 
 
     describe('#neg()', function () {
