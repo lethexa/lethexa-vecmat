@@ -566,6 +566,26 @@ describe('Quat', function () {
         });
     });
 
+    describe('#angleTo()', function () {
+	var round = function(x, digits) {
+		var multiplier = Math.pow(10.0, digits);
+		return Math.floor(x * multiplier ) / multiplier;
+	};
+
+        it('should return the angle between two quaternions', function () {
+            var angle = 45.0 * Math.PI / 180.0;
+            var axis = vecmat.makeUnitZVector3d();
+            var q1 = vecmat.quatFromRotation(0, axis);
+            var q2 = vecmat.quatFromRotation(angle, axis);
+
+	    var result = round(q1.angleTo(q2), 6);
+	    var expected = round(angle, 6);
+		
+            assert.deepEqual(expected, result);
+        });
+    });
+
+
     describe('#neg()', function () {
         it('should return the negative quaternion', function () {
 	    var q = new vecmat.Quat(16.0, new vecmat.Vector3d(1.0, 2.0, 3.0) );
