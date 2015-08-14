@@ -588,6 +588,20 @@ describe('Quat', function () {
         });
     });
 
+    describe('#mul()', function () {
+        it('should return a combined rotation quaternion', function () {
+            var angle = 90.0 * Math.PI / 180.0;
+            var axis = vecmat.makeUnitZVector3d();
+            var q1 = vecmat.quatFromRotation(angle, axis);
+            var q2 = vecmat.quatFromRotation(angle, axis);
+
+	    var result = q1.mul(q2);
+	    var expected = new vecmat.Quat(2.220446049250313e-16, new vecmat.Vector3d(0.0, 0.0, 1.0) );
+		
+            assert.deepEqual(expected, result);
+        });
+    });
+
 
 
 
