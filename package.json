@@ -1,7 +1,7 @@
 {
   "name": "lethexa-vecmat",
   "version": "0.0.6",
-  "description": "Vector/matrix calculations",
+  "description": "Vector/matrix/quaternion calculations",
   "main": "index.js",
   "author":  {
     "name": "Tim Leerhoff",
@@ -10,6 +10,11 @@
   "scripts": {
     "test": "jshint lib/"
   },
+  "keywords": [
+    "Vector",
+    "Matrix",
+    "Quaternion"
+  ],
   "publishConfig": {
     "registry": "http://npm.home.web:4873/"
   },
@@ -17,7 +22,7 @@
     "type": "git",
     "url": "git://git.home.web/base/js/lethexa-vecmat.git"
   },
-  "license": "BSD-2-Clause",
+  "license": "MIT",
   "dependencies": {
   },
   "devDependencies": {
