@@ -577,6 +577,18 @@ describe('Quat', function () {
         });
     });
 
+    describe('#conj()', function () {
+        it('should return the conjugate quaternion', function () {
+	    var q = new vecmat.Quat(16.0, new vecmat.Vector3d(1.0, 2.0, 3.0) );
+
+	    var result = q.conj();
+	    var expected = new vecmat.Quat(16.0, new vecmat.Vector3d(-1.0, -2.0, -3.0) );
+		
+            assert.deepEqual(expected, result);
+        });
+    });
+
+
 
 
 
