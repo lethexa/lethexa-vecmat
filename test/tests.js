@@ -447,6 +447,18 @@ describe('Quat', function () {
             assert.deepEqual(expected, result);
         });
     });
+
+    describe('#toString()', function () {
+        it('should return a valid string representation', function () {
+	    var q = new vecmat.Quat(1.0, new vecmat.Vector3d(2.0, 3.0, 4.0) );
+		
+            var result = q.toString();
+            var expected = '1,2;3;4';
+
+            assert.deepEqual(expected, result);
+        });
+    });
+
 });
 
 
