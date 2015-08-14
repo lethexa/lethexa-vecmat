@@ -436,6 +436,28 @@ describe('Matrix3x3', function () {
 
 
 describe('Quat', function () {
+    describe('#real()', function () {
+        it('should return the real part of the quaternion', function () {
+	    var q = new vecmat.Quat(2.0, new vecmat.Vector3d(1.0, 1.0, 1.0) );
+		
+            var result = q.real();
+            var expected = 2.0;
+
+            assert.deepEqual(expected, result);
+        });
+    });
+
+    describe('#imag()', function () {
+        it('should return the imag part of the quaternion', function () {
+	    var q = new vecmat.Quat(2.0, new vecmat.Vector3d(1.0, 1.0, 1.0) );
+		
+            var result = q.imag();
+            var expected = new vecmat.Vector3d(1.0, 1.0, 1.0);
+
+            assert.deepEqual(expected, result);
+        });
+    });
+
     describe('#quatRotationFromAxis()', function () {
         it('should return a rotation quaternion from axis and angle', function () {
             var angle = 180.0 * Math.PI / 180.0;
