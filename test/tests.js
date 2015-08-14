@@ -566,6 +566,18 @@ describe('Quat', function () {
         });
     });
 
+    describe('#neg()', function () {
+        it('should return the negative quaternion', function () {
+	    var q = new vecmat.Quat(16.0, new vecmat.Vector3d(1.0, 2.0, 3.0) );
+
+	    var result = q.neg();
+	    var expected = new vecmat.Quat(-16.0, new vecmat.Vector3d(-1.0, -2.0, -3.0) );
+		
+            assert.deepEqual(expected, result);
+        });
+    });
+
+
 
 
 
