@@ -553,6 +553,19 @@ describe('Quat', function () {
         });
     });
 
+    describe('#angle()', function () {
+        it('should return the angle around the rotation-axis of the quaternion', function () {
+            var angle = 180.0 * Math.PI / 180.0;
+            var axis = vecmat.makeUnitZVector3d();
+	    var q = vecmat.quatFromRotation(angle, axis);
+
+	    var result = q.angle();
+	    var expected = angle;
+		
+            assert.deepEqual(expected, result);
+        });
+    });
+
 
 
 
