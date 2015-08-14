@@ -436,6 +436,21 @@ describe('Matrix3x3', function () {
 
 
 describe('Quat', function () {
+    describe('#shortestArcQuat()', function () {
+        it('should return the shortest arc quat between two vectors', function () {
+            var v1 = new vecmat.Vector3d(1.0, 0.0, 0.0);
+            var v2 = new vecmat.Vector3d(0.0, 1.0, 0.0);
+
+	    var result = vecmat.shortestArcQuat(v1, v2);
+	    var expected = vecmat.quatFromRotation(
+                90.0 * Math.PI / 180.0, 
+                vecmat.makeUnitZVector3d()
+            );
+		
+            assert.deepEqual(expected, result);
+        });
+    });
+
     describe('#real()', function () {
         it('should return the real part of the quaternion', function () {
 	    var q = new vecmat.Quat(2.0, new vecmat.Vector3d(1.0, 1.0, 1.0) );
