@@ -528,6 +528,18 @@ describe('Quat', function () {
         });
     });
 
+    describe('#dot()', function () {
+        it('should return the scalar-product', function () {
+	    var q1 = new vecmat.Quat(1.0, new vecmat.Vector3d(1.0, 1.0, 1.0) );
+            var q2 = new vecmat.Quat(2.0, new vecmat.Vector3d(2.0, 2.0, 2.0) );	
+	
+            var result = q1.dot(q2);
+            var expected = 8.0;
+
+            assert.deepEqual(expected, result);
+        });
+    });
+
 
 
     describe('#toString()', function () {
