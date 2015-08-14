@@ -1,6 +1,11 @@
 var assert = require("assert");
 var vecmat = require("../lib/vecmat.js");
 
+var round = function(x, digits) {
+    var multiplier = Math.pow(10.0, digits);
+    return Math.floor(x * multiplier ) / multiplier;
+};
+
 
 describe('Array', function () {
     describe('#indexOf()', function () {
@@ -437,7 +442,7 @@ describe('Matrix3x3', function () {
 
 describe('Quat', function () {
     describe('#shortestArcQuat()', function () {
-        it('should return the shortest arc quat between two vectors', function () {
+        it('should return the shortest arc quat between two vectors 1', function () {
             var v1 = new vecmat.Vector3d(1.0, 0.0, 0.0);
             var v2 = new vecmat.Vector3d(0.0, 1.0, 0.0);
 
@@ -447,7 +452,22 @@ describe('Quat', function () {
                 vecmat.makeUnitZVector3d()
             );
 		
-            assert.deepEqual(expected, result);
+            assert.deepEqual(expected.round(8), result.round(8));
+        });
+    });
+
+    describe('#shortestArcQuat()', function () {
+        it('should return the shortest arc quat between two vectors 2', function () {
+            var v1 = new vecmat.Vector3d(1.0, 0.0, 0.0);
+            var v2 = new vecmat.Vector3d(1.0, 1.0, 0.0);
+
+	    var result = vecmat.shortestArcQuat(v1, v2);
+	    var expected = vecmat.quatFromRotation(
+                45.0 * Math.PI / 180.0, 
+                vecmat.makeUnitZVector3d()
+            );
+		
+            assert.deepEqual(expected.round(8), result.round(8));
         });
     });
 
@@ -582,11 +602,6 @@ describe('Quat', function () {
     });
 
     describe('#angleTo()', function () {
-	var round = function(x, digits) {
-		var multiplier = Math.pow(10.0, digits);
-		return Math.floor(x * multiplier ) / multiplier;
-	};
-
         it('should return the angle between two quaternions', function () {
             var angle = 45.0 * Math.PI / 180.0;
             var axis = vecmat.makeUnitZVector3d();
