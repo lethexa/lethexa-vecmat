@@ -436,6 +436,19 @@ describe('Matrix3x3', function () {
 
 
 describe('Quat', function () {
+    describe('#quatRotationFromAxis()', function () {
+        it('should return a rotation quaternion from axis and angle', function () {
+            var angle = 180.0 * Math.PI / 180.0;
+            var axis = vecmat.makeUnitZVector3d();
+
+	    var result = vecmat.quatRotationFromAxis(angle, axis);
+	    var expected = new vecmat.Quat(6.123233995736766e-17, new vecmat.Vector3d(0.0, 0.0, 1.0) );
+		
+            assert.deepEqual(expected, result);
+        });
+    });
+
+
     describe('#add()', function () {
         it('should return the sum of the quaternions', function () {
 	    var q1 = new vecmat.Quat(1.0, new vecmat.Vector3d(1.0, 1.0, 1.0) );
