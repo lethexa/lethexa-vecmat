@@ -444,12 +444,12 @@ describe('Quat', function () {
     describe('#quatFromEulerAngles()', function () {
         it('should return a quat from the given euler angles', function () {
             var phi = 0.0;
-            var theta = 90.0 * Math.PI / 180.0;
+            var theta = 45.0 * Math.PI / 180.0;
             var psi = 0.0;
 
 	    var result = vecmat.quatFromEulerAngles(phi, theta, psi);
 	    var expected = vecmat.quatFromRotation(
-                90.0 * Math.PI / 180.0, 
+                45.0 * Math.PI / 180.0, 
                 vecmat.makeUnitYVector3d()
             );
 		
