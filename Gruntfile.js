@@ -106,7 +106,7 @@ module.exports = function (grunt) {
     grunt.registerTask('check', ['jshint']);
     grunt.registerTask('test', ['mochaTest']);
     grunt.registerTask('coverage', ['concat', 'jshint', 'env:coverage', 'instrument', 'mochaTest', 'storeCoverage', 'makeReport']);
-    grunt.registerTask('jenkins', ['concat', 'jshint', 'mochaTest', 'yuidoc', 'uglify']);
+    grunt.registerTask('jenkins', ['concat', 'jshint', 'env:coverage', 'instrument', 'mochaTest', 'storeCoverage', 'makeReport', 'uglify']);
     grunt.registerTask('default', ['concat', 'jshint', 'mochaTest', 'yuidoc', 'uglify']);
 
 };
