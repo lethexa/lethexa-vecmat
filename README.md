@@ -23,7 +23,8 @@ Usage
                 [0,0,1]
         ]);
 
-        var v = new vecmat.Quat(1.0, new vecmat.Vector3d(1.0, 2.0, 3.0)); 
+
+	var q = new vecmat.Quat(1.0, new vecmat.Vector3d(1.0, 2.0, 3.0)); 
 
 
 

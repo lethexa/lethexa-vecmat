@@ -1,5 +1,8 @@
-var assert = require("assert");
-var vecmat = require("../lib/vecmat.js");
+var assert = require('assert');
+//var vecmat = require('../lib/vecmat.js');
+//var vecmat = require('../coverage/instrument/lib/vecmat.js');
+var vecmat = require((process.env.APP_DIR_FOR_CODE_COVERAGE || '../lib/') + 'vecmat.js');
+
 
 var round = function(x, digits) {
     var multiplier = Math.pow(10.0, digits);
