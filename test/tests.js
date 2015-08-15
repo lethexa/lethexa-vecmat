@@ -233,12 +233,12 @@ describe('Vector3d', function () {
 
 
 describe('Matrix3x3', function () {
-    describe('#mul()', function () {
+    describe('#mulScalar()', function () {
         it('multiply a matrix with a skalar', function () {
             var m = vecmat.matrix3x3FromArray([[1,0,0],[0,1,0],[0,0,1]]);
             var s = 2;
             
-            var actual = m.mul(s).toString();
+            var actual = m.mulScalar(s).toString();
             var expected = '2,0,0,\n0,2,0,\n0,0,2,\n';
             
             assert.equal(expected, actual);
@@ -269,12 +269,12 @@ describe('Matrix3x3', function () {
         });
     });
 
-    describe('#mul()', function () {
+    describe('#mulVector()', function () {
         it('multiply a matrix and a vector', function () {
             var m1 = vecmat.makeUnitMatrix3x3();
             var v2 = vecmat.vector3dFromArray([1,0,0]);
             
-            var actual = m1.mul(v2).toString();
+            var actual = m1.mulVector(v2).toString();
             var expected = '1;0;0';
             
             assert.equal(expected, actual);
