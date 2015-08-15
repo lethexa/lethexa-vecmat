@@ -34,14 +34,6 @@ module.exports = function (grunt) {
             all: ['dist/<%= pkg.name %>.js']
         },
         
-        mochacli: {
-          options: {
-            reporter: "list",
-            ui: "tdd"
-          },
-          all: ["test/tests.js"]
-        },        
-       
         mochaTest: {
           test: {
             options: {
@@ -94,7 +86,6 @@ module.exports = function (grunt) {
         }
     });
 
-    grunt.loadNpmTasks("grunt-mocha-cli");
     grunt.loadNpmTasks('grunt-mocha-test');
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-contrib-concat');
