@@ -21,6 +21,155 @@ describe('Array', function () {
 
 
 
+
+describe('Vector2d', function () {    
+    
+    describe('#vector2dFromString()', function () {
+        it('should return valid vector when parsing from string', function () {
+            var v = vecmat.vector2dFromString('1;2');
+            
+            var actual = v.toString();
+            var expected = '1;2';
+            
+            assert.equal(expected, actual);
+        });
+    });
+
+    describe('#vector2dFromPolar()', function () {
+        it('should return valid vector when providing polar coordinates', function () {
+            var v = vecmat.vector2dFromPolar(0, 1);
+
+            var actual = v.toString();
+            var expected = '1;0';
+
+            assert.equal(expected, actual);
+        });
+    });
+
+    describe('#vector2dFromElements()', function () {
+        it('should return valid vector when providing 2 elements', function () {
+            var v = vecmat.vector2dFromElements(0, 1);
+
+            var actual = v.toString();
+            var expected = '0;1';
+
+            assert.equal(expected, actual);
+        });
+    });
+
+    describe('#length()', function () {
+        it('should return the length of the vector', function () {
+            var v = vecmat.vector2dFromElements(0, 1);
+
+            var actual = v.length();
+            var expected = 1;
+
+            assert.equal(expected, actual);
+        });
+    });
+
+    describe('#neg()', function () {
+        it('should return the negative vector', function () {
+            var v = vecmat.vector2dFromElements(1, 2);
+
+            var actual = v.neg().toString();
+            var expected = '-1;-2';
+
+            assert.equal(expected, actual);
+        });
+    });
+
+    describe('#unit()', function () {
+        it('should return the unit vector', function () {
+            var v = vecmat.vector2dFromElements(0, 5);
+
+            var actual = v.unit().toString();
+            var expected = '0;1';
+
+            assert.equal(expected, actual);
+        });
+    });
+
+    describe('#pitch()', function () {
+        it('should return the pitch of the vector', function () {
+            var v = vecmat.vector2dFromPolar(45 * Math.PI / 180.0, 5);
+
+            var actual = v.pitch();
+            var expected = 45 * Math.PI / 180.0;
+
+            assert.equal(expected, actual);
+        });
+    });
+
+    describe('#add()', function () {
+        it('should return the addition of two vectors', function () {
+            var v1 = vecmat.vector2dFromElements(1, 2);
+            var v2 = vecmat.vector2dFromElements(2, 4);
+
+            var actual = v1.add(v2);
+            var expected = vecmat.vector3dFromElements(3, 6);
+
+            assert.equal(expected.x(), actual.x());
+            assert.equal(expected.y(), actual.y());
+        });
+    });
+
+    describe('#sub()', function () {
+        it('should return the subtraction of two vectors', function () {
+            var v1 = vecmat.vector2dFromElements(1, 2);
+            var v2 = vecmat.vector2dFromElements(2, 4);
+
+            var actual = v2.sub(v1);
+            var expected = vecmat.vector3dFromElements(1, 2);
+
+            assert.equal(expected.x(), actual.x());
+            assert.equal(expected.y(), actual.y());
+        });
+    });
+
+    describe('#sub()', function () {
+        it('should return the multiplication with a scalar', function () {
+            var v = vecmat.vector2dFromElements(1, 2);
+
+            var actual = v.mul(10);
+            var expected = vecmat.vector3dFromElements(10, 20);
+
+            assert.equal(expected.x(), actual.x());
+            assert.equal(expected.y(), actual.y());
+        });
+    });
+
+    describe('#dot()', function () {
+        it('should return the dot-product of two vectors', function () {
+            var v1 = vecmat.vector2dFromElements(1, 0);
+            var v2 = vecmat.vector2dFromElements(0, 1);
+
+            var actual = v1.dot(v2);
+            var expected = 0;
+
+            assert.equal(expected, actual);
+        });
+    });
+
+    describe('#toArray()', function () {
+        it('should return the vector as array', function () {
+            var v = vecmat.vector2dFromElements(1, 2);
+
+            var actual = v.toArray();
+            var expected = [1,2];
+
+            assert.equal(expected[0], actual[0]);
+            assert.equal(expected[1], actual[1]);
+        });
+    });
+});
+
+
+
+
+
+
+
 describe('Vector3d', function () {
     
     describe('#intersectionAtPositiveYAxis2d()', function () {
