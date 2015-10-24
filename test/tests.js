@@ -883,6 +883,20 @@ describe('Quat', function () {
         });
     });
 
+    describe('#mulVector()', function () {
+        it('should return a rotated vector', function () {
+            var angle = 90.0 * Math.PI / 180.0;
+            var axis = vecmat.makeUnitZVector3d();
+            var v = vecmat.makeUnitXVector3d();
+            var q = vecmat.quatFromRotation(angle, axis);
+
+	    var result = q.mulVector(v).round(6);
+	    var expected = vecmat.makeUnitYVector3d();
+		
+            assert.deepEqual(expected, result);
+        });
+    });
+
     describe('#toMatrix3x3()', function () {
         it('should create a rotated vector', function () {
             var angle = 90.0 * Math.PI / 180.0;
