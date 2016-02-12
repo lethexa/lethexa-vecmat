@@ -28,9 +28,3 @@ Usage
 
 
 
-Contributors
-------------
-
-* Tim Leerhoff <tleerhof@web.de>
-
-
