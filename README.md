@@ -1,5 +1,12 @@
-Installation
-------------
+lethexa-vecmat
+--------------
+
+This library contains implementations for vectors, matrices and quaternions for
+3D calculations.
+
+
+Build
+-----
 
 	npm install
 	grunt
@@ -27,4 +34,8 @@ Usage
 	var q = new vecmat.Quat(1.0, new vecmat.Vector3d(1.0, 2.0, 3.0)); 
 
 
+License
+-------
+
+This library is published under MIT-license.
 
