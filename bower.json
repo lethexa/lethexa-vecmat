@@ -1,0 +1,27 @@
+{
+  "name": "lethexa-vecmat",
+  "main": "lib/vecmat.js",
+  "version": "1.1.2",
+  "authors": [
+    "Tim Leerhoff <tleerhof@web.de>"
+  ],
+  "description": "Vector/matrix/quaternion calculations",
+  "moduleType": [
+    "amd",
+    "es6",
+    "globals"
+  ],
+  "keywords": [
+    "Vector",
+    "Matrix",
+    "Quaternion"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
