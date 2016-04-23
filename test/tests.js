@@ -891,7 +891,7 @@ describe('Quat', function () {
             var q = vecmat.quatFromRotation(angle, axis);
 
 	    var result = q.mulVector(v).round(6);
-	    var expected = vecmat.makeUnitYVector3d();
+	    var expected = vecmat.quatFromVector3d(vecmat.makeUnitYVector3d());
 		
             assert.deepEqual(expected, result);
         });
