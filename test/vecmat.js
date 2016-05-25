@@ -1031,6 +1031,25 @@ describe('Plane', function () {
     });
 
     describe('#intersect()', function () {
+        it('should return the intersection-vector between a ray and the plane', function () {
+            var plane = new vecmat.Plane(
+              new vecmat.Vector3d(0,0,1),
+              new vecmat.Vector3d(0,0,1)
+            );
+            var start = new vecmat.Vector3d(1,1,-10);
+            var direction = new vecmat.Vector3d(0,0,1);
+            var ray = vecmat.rayFromPointDir(start, direction);
+
+            var result = plane.intersect(ray);
+
+            assert.deepEqual(plane, result.object);
+            assert.deepEqual(new vecmat.Vector3d(0,0,1), result.normal);
+            assert.deepEqual(ray, result.ray);
+            assert.deepEqual(new vecmat.Vector3d(1,1,1), result.pointOfIntersect);
+        });
+    });
+
+    describe('#intersect()', function () {
         it('should return undefined when not intersecting between a ray and the plane', function () {
             var plane = new vecmat.Plane(
               new vecmat.Vector3d(0,0,1),
