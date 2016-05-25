@@ -988,6 +988,23 @@ describe('Triangle', function () {
         });
     });
 
+    describe('#intersect()', function () {
+        it('should return undefined when not intersecting between a ray and the triangle', function () {
+            var triangle = new vecmat.Triangle(
+              new vecmat.Vector3d(-1,0,0),
+              new vecmat.Vector3d(1,0,0),
+              new vecmat.Vector3d(0,2,0)
+            );
+            var start = new vecmat.Vector3d(2,1,10);
+            var direction = new vecmat.Vector3d(0,0,-1);
+            var ray = vecmat.rayFromPointDir(start, direction);
+
+            var result = triangle.intersect(ray);
+
+            assert.equal(undefined, result);
+        });
+    });
+
 
 });
 
