@@ -10,16 +10,6 @@ var round = function(x, digits) {
 };
 
 
-describe('Array', function () {
-    describe('#indexOf()', function () {
-        it('should return -1 when the value is not present', function () {
-            assert.equal(-1, [1, 2, 3].indexOf(5));
-            assert.equal(-1, [1, 2, 3].indexOf(0));
-        });
-    });
-});
-
-
 
 
 describe('Vector2d', function () {    
@@ -929,5 +919,77 @@ describe('Quat', function () {
     });
 
 });
+
+
+describe('Ray', function () {
+    describe('#getStart()', function () {
+        it('should return the raystart-vector', function () {
+            var start = new vecmat.Vector3d(1,0,0);
+            var end = new vecmat.Vector3d(2,0,0);
+            var ray = vecmat.rayFromPoints(start, end);
+
+            assert.deepEqual(start, ray.getStart());
+        });
+    });
+
+    describe('#getDirection()', function () {
+        it('should return the raydirection-vector', function () {
+            var start = new vecmat.Vector3d(1,0,0);
+            var end = new vecmat.Vector3d(3,0,0);
+            var ray = vecmat.rayFromPoints(start, end);
+
+            assert.deepEqual(new vecmat.Vector3d(1,0,0), ray.getDirection());
+        });
+    });
+
+    describe('#getDirection()', function () {
+        it('should return the raydirection-vector', function () {
+            var start = new vecmat.Vector3d(0,0,0);
+            var direction = new vecmat.Vector3d(2,0,0);
+            var ray = vecmat.rayFromPointDir(start, direction);
+
+            assert.deepEqual(new vecmat.Vector3d(1,0,0), ray.getDirection());
+        });
+    });
+
+    describe('#getPointAtLength()', function () {
+        it('should return the vector at the given distance', function () {
+            var start = new vecmat.Vector3d(0,0,0);
+            var direction = new vecmat.Vector3d(2,0,0);
+            var ray = vecmat.rayFromPointDir(start, direction);
+
+            var result = ray.getPointAtLength(0.5);
+
+            assert.deepEqual(new vecmat.Vector3d(0.5,0,0), result);
+        });
+    });
+});
+
+
+describe('Triangle', function () {
+    describe('#intersect()', function () {
+        it('should return the intersection-vector between a ray and the triangle', function () {
+            var triangle = new vecmat.Triangle(
+              new vecmat.Vector3d(-1,0,0),
+              new vecmat.Vector3d(1,0,0),
+              new vecmat.Vector3d(0,2,0)
+            );
+            var start = new vecmat.Vector3d(0,1,10);
+            var direction = new vecmat.Vector3d(0,0,-1);
+            var ray = vecmat.rayFromPointDir(start, direction);
+
+            var result = triangle.intersect(ray);
+            var point = ray.getPointAtLength(result.rayLengthOfIntersect);
+
+            assert.deepEqual(triangle, result.object);
+            assert.deepEqual(new vecmat.Vector3d(0,0,1), result.normal);
+            assert.deepEqual(ray, result.ray);
+            assert.deepEqual(new vecmat.Vector3d(0,1,0), point);
+        });
+    });
+
+
+});
+
 
 
