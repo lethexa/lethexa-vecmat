@@ -47,6 +47,28 @@ describe('Vector2d', function () {
         });
     });
 
+    describe('#isEqualTo()', function () {
+        it('should return true if both are equal', function () {
+            var v1 = vecmat.vector2dFromElements(0, 1);
+            var v2 = vecmat.vector2dFromElements(0, 1);
+
+            var result = v1.isEqualTo(v2);
+
+            assert.equal(true, result);
+        });
+    });
+
+    describe('#isEqualTo()', function () {
+        it('should return false if both are NOT equal', function () {
+            var v1 = vecmat.vector2dFromElements(0, 0);
+            var v2 = vecmat.vector2dFromElements(1, 1);
+
+            var result = v1.isEqualTo(v2);
+
+            assert.equal(false, result);
+        });
+    });
+
     describe('#length()', function () {
         it('should return the length of the vector', function () {
             var v = vecmat.vector2dFromElements(0, 1);
@@ -206,6 +228,28 @@ describe('Vector3d', function () {
             var expected = '0;0;1';
 
             assert.equal(expected, actual);
+        });
+    });
+
+    describe('#isEqualTo()', function () {
+        it('should return true if both are equal', function () {
+            var v1 = vecmat.vector3dFromElements(1, 1, 1);
+            var v2 = vecmat.vector3dFromElements(1, 1, 1);
+
+            var result = v1.isEqualTo(v2);
+
+            assert.equal(true, result);
+        });
+    });
+
+    describe('#isEqualTo()', function () {
+        it('should return false if both are NOT equal', function () {
+            var v1 = vecmat.vector3dFromElements(0, 0, 0);
+            var v2 = vecmat.vector3dFromElements(1, 1, 1);
+
+            var result = v1.isEqualTo(v2);
+
+            assert.equal(false, result);
         });
     });
 
@@ -629,6 +673,28 @@ describe('Quat', function () {
         });
     });
 
+    describe('#isEqualTo()', function () {
+        it('should return true if both are equal', function () {
+            var q1 = new vecmat.Quat(2.0, new vecmat.Vector3d(1.0, 1.0, 1.0) );
+            var q2 = new vecmat.Quat(2.0, new vecmat.Vector3d(1.0, 1.0, 1.0) );
+
+            var result = q1.isEqualTo(q2);
+
+            assert.equal(true, result);
+        });
+    });
+
+    describe('#isEqualTo()', function () {
+        it('should return false if both are NOT equal', function () {
+            var q1 = new vecmat.Quat(2.0, new vecmat.Vector3d(0.0, 0.0, 0.0) );
+            var q2 = new vecmat.Quat(2.0, new vecmat.Vector3d(1.0, 1.0, 1.0) );
+
+            var result = q1.isEqualTo(q2);
+
+            assert.equal(false, result);
+        });
+    });
+
     describe('#real()', function () {
         it('should return the real part of the quaternion', function () {
 	    var q = new vecmat.Quat(2.0, new vecmat.Vector3d(1.0, 1.0, 1.0) );
@@ -922,6 +988,29 @@ describe('Quat', function () {
 
 
 describe('Ray', function () {
+
+    describe('#isEqualTo()', function () {
+        it('should return true if both are equal', function () {
+            var r1 = new vecmat.Ray(new vecmat.Vector3d(0.0, 0.0, 0.0), new vecmat.Vector3d(1.0, 1.0, 1.0) );
+            var r2 = new vecmat.Ray(new vecmat.Vector3d(0.0, 0.0, 0.0), new vecmat.Vector3d(1.0, 1.0, 1.0) );
+
+            var result = r1.isEqualTo(r2);
+
+            assert.equal(true, result);
+        });
+    });
+
+    describe('#isEqualTo()', function () {
+        it('should return false if both are NOT equal', function () {
+            var r1 = new vecmat.Ray(new vecmat.Vector3d(0.0, 0.0, 0.0), new vecmat.Vector3d(1.0, 1.0, 1.0) );
+            var r2 = new vecmat.Ray(new vecmat.Vector3d(1.0, 1.0, 1.0), new vecmat.Vector3d(0.0, 0.0, 0.0) );
+
+            var result = r1.isEqualTo(r2);
+
+            assert.equal(false, result);
+        });
+    });
+
     describe('#getStart()', function () {
         it('should return the raystart-vector', function () {
             var start = new vecmat.Vector3d(1,0,0);
@@ -967,6 +1056,29 @@ describe('Ray', function () {
 
 
 describe('Triangle', function () {
+
+    describe('#isEqualTo()', function () {
+        it('should return true if both are equal', function () {
+            var t1 = new vecmat.Triangle(new vecmat.Vector3d(0.0, 0.0, 0.0), new vecmat.Vector3d(1.0, 1.0, 1.0), new vecmat.Vector3d(2.0, 1.0, 1.0) );
+            var t2 = new vecmat.Triangle(new vecmat.Vector3d(0.0, 0.0, 0.0), new vecmat.Vector3d(1.0, 1.0, 1.0), new vecmat.Vector3d(2.0, 1.0, 1.0) );
+
+            var result = t1.isEqualTo(t2);
+
+            assert.equal(true, result);
+        });
+    });
+
+    describe('#isEqualTo()', function () {
+        it('should return false if both are NOT equal', function () {
+            var t1 = new vecmat.Triangle(new vecmat.Vector3d(0.0, 0.0, 0.0), new vecmat.Vector3d(1.0, 1.0, 1.0), new vecmat.Vector3d(2.0, 1.0, 1.0) );
+            var t2 = new vecmat.Triangle(new vecmat.Vector3d(1.0, 0.0, 0.0), new vecmat.Vector3d(1.0, 1.0, 1.0), new vecmat.Vector3d(2.0, 1.0, 1.0) );
+
+            var result = t1.isEqualTo(t2);
+
+            assert.equal(false, result);
+        });
+    });
+
     describe('#intersect()', function () {
         it('should return the intersection-vector between a ray and the triangle', function () {
             var triangle = new vecmat.Triangle(
@@ -1004,13 +1116,35 @@ describe('Triangle', function () {
         });
     });
 
-
 });
 
 
 
 
 describe('Plane', function () {
+
+    describe('#isEqualTo()', function () {
+        it('should return true if both are equal', function () {
+            var p1 = new vecmat.Plane(new vecmat.Vector3d(0.0, 0.0, 0.0), new vecmat.Vector3d(1.0, 1.0, 1.0) );
+            var p2 = new vecmat.Plane(new vecmat.Vector3d(0.0, 0.0, 0.0), new vecmat.Vector3d(1.0, 1.0, 1.0) );
+
+            var result = p1.isEqualTo(p2);
+
+            assert.equal(true, result);
+        });
+    });
+
+    describe('#isEqualTo()', function () {
+        it('should return false if both are NOT equal', function () {
+            var p1 = new vecmat.Plane(new vecmat.Vector3d(0.0, 0.0, 0.0), new vecmat.Vector3d(1.0, 1.0, 1.0) );
+            var p2 = new vecmat.Plane(new vecmat.Vector3d(0.0, 0.0, 0.0), new vecmat.Vector3d(0.0, 1.0, 1.0) );
+
+            var result = p1.isEqualTo(p2);
+
+            assert.equal(false, result);
+        });
+    });
+
     describe('#intersect()', function () {
         it('should return the intersection-vector between a ray and the plane', function () {
             var plane = new vecmat.Plane(
