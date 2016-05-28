@@ -1243,7 +1243,7 @@ describe('Sphere', function () {
             var result = sphere.intersect(ray);
 
             assert.deepEqual(sphere, result.object);
-            //assert.deepEqual(new vecmat.Vector3d(0,0,0), result.normal);
+            assert.deepEqual(new vecmat.Vector3d(-1,0,0), result.normal);
             assert.deepEqual(ray, result.ray);
             assert.deepEqual(new vecmat.Vector3d(-1,0,0), result.pointOfIntersect);
         });
@@ -1262,7 +1262,7 @@ describe('Sphere', function () {
             var result = sphere.intersect(ray);
 
             assert.deepEqual(sphere, result.object);
-            //assert.deepEqual(new vecmat.Vector3d(0,0,1), result.normal);
+            assert.deepEqual(new vecmat.Vector3d(-0.000004,1,0), result.normal.round(6));
             assert.deepEqual(ray, result.ray);
             assert.deepEqual(new vecmat.Vector3d(-0.000004,1,0), result.pointOfIntersect.round(6));
         });
