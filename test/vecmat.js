@@ -1205,3 +1205,87 @@ describe('Plane', function () {
 
 
 
+
+describe('Sphere', function () {
+
+    describe('#isEqualTo()', function () {
+        it('should return true if both are equal', function () {
+            var p1 = new vecmat.Sphere(new vecmat.Vector3d(0.0, 0.0, 0.0), 10);
+            var p2 = new vecmat.Sphere(new vecmat.Vector3d(0.0, 0.0, 0.0), 10);
+
+            var result = p1.isEqualTo(p2);
+
+            assert.equal(true, result);
+        });
+    });
+
+    describe('#isEqualTo()', function () {
+        it('should return false if both are NOT equal', function () {
+            var p1 = new vecmat.Sphere(new vecmat.Vector3d(0.0, 0.0, 0.0), 10);
+            var p2 = new vecmat.Sphere(new vecmat.Vector3d(0.0, 0.0, 0.0), 20);
+
+            var result = p1.isEqualTo(p2);
+
+            assert.equal(false, result);
+        });
+    });
+
+    describe('#intersect()', function () {
+        it('should return the intersection-vector between a ray and the sphere', function () {
+            var sphere = new vecmat.Sphere(
+              new vecmat.Vector3d(0,0,0),
+              1
+            );
+            var start = new vecmat.Vector3d(-10,0,0);
+            var direction = new vecmat.Vector3d(1,0,0);
+            var ray = vecmat.rayFromPointDir(start, direction);
+
+            var result = sphere.intersect(ray);
+
+            assert.deepEqual(sphere, result.object);
+            //assert.deepEqual(new vecmat.Vector3d(0,0,0), result.normal);
+            assert.deepEqual(ray, result.ray);
+            assert.deepEqual(new vecmat.Vector3d(-1,0,0), result.pointOfIntersect);
+        });
+    });
+
+    describe('#intersect()', function () {
+        it('should return the intersection-vector between a ray and the sphere', function () {
+            var sphere = new vecmat.Sphere(
+              new vecmat.Vector3d(0,0,0),
+              1
+            );
+            var start = new vecmat.Vector3d(-10,0.99999999999,0);
+            var direction = new vecmat.Vector3d(1,0,0);
+            var ray = vecmat.rayFromPointDir(start, direction);
+
+            var result = sphere.intersect(ray);
+
+            assert.deepEqual(sphere, result.object);
+            //assert.deepEqual(new vecmat.Vector3d(0,0,1), result.normal);
+            assert.deepEqual(ray, result.ray);
+            assert.deepEqual(new vecmat.Vector3d(-0.000004,1,0), result.pointOfIntersect.round(6));
+        });
+    });
+/*
+    describe('#intersect()', function () {
+        it('should return undefined when not intersecting between a ray and the plane', function () {
+            var plane = new vecmat.Plane(
+              new vecmat.Vector3d(0,0,1),
+              new vecmat.Vector3d(0,0,1)
+            );
+            var start = new vecmat.Vector3d(0,0,0);
+            var direction = new vecmat.Vector3d(1,0,0);
+            var ray = vecmat.rayFromPointDir(start, direction);
+
+            var result = plane.intersect(ray);
+
+            assert.equal(undefined, result);
+        });
+    });
+
+*/
+});
+
+
+
