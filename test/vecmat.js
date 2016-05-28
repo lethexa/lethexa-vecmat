@@ -1267,24 +1267,22 @@ describe('Sphere', function () {
             assert.deepEqual(new vecmat.Vector3d(-0.000004,1,0), result.pointOfIntersect.round(6));
         });
     });
-/*
+
     describe('#intersect()', function () {
-        it('should return undefined when not intersecting between a ray and the plane', function () {
-            var plane = new vecmat.Plane(
-              new vecmat.Vector3d(0,0,1),
-              new vecmat.Vector3d(0,0,1)
+        it('should return the intersection-vector between a ray and the sphere', function () {
+            var sphere = new vecmat.Sphere(
+              new vecmat.Vector3d(0,0,0),
+              1
             );
-            var start = new vecmat.Vector3d(0,0,0);
+            var start = new vecmat.Vector3d(-10,2,0);
             var direction = new vecmat.Vector3d(1,0,0);
             var ray = vecmat.rayFromPointDir(start, direction);
 
-            var result = plane.intersect(ray);
+            var result = sphere.intersect(ray);
 
-            assert.equal(undefined, result);
+            assert.deepEqual(undefined, result);
         });
     });
-
-*/
 });
 
 
