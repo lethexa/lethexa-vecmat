@@ -1287,3 +1287,64 @@ describe('Sphere', function () {
 
 
 
+
+
+describe('Polygon2d', function () {
+
+    describe('#isEqualTo()', function () {
+        it('should return true if both are equal', function () {
+            var p1 = new vecmat.Polygon2d([new vecmat.Vector2d(1.0, 2.0)]);
+            var p2 = new vecmat.Polygon2d([new vecmat.Vector2d(1.0, 2.0)]);
+
+            var result = p1.isEqualTo(p2);
+
+            assert.equal(true, result);
+        });
+    });
+
+    describe('#isEqualTo()', function () {
+        it('should return false if both are NOT equal', function () {
+            var p1 = new vecmat.Polygon2d([new vecmat.Vector2d(1.0, 1.0)]);
+            var p2 = new vecmat.Polygon2d([new vecmat.Vector2d(2.0, 2.0)]);
+
+            var result = p1.isEqualTo(p2);
+
+            assert.equal(false, result);
+        });
+    });
+
+    describe('#containsPoint()', function () {
+        it('should return true if point is in polygon', function () {
+            var poly = new vecmat.Polygon2d([
+                new vecmat.Vector2d(-1.0, 1.0),
+                new vecmat.Vector2d( 1.0, 1.0),
+                new vecmat.Vector2d( 1.0,-1.0),
+                new vecmat.Vector2d(-1.0,-1.0)
+            ]);
+            var point = new vecmat.Vector2d(0,0);
+
+            var result = poly.containsPoint(point);
+
+            assert.equal(true, result);
+        });
+    });
+
+    describe('#containsPoint()', function () {
+        it('should return false if point is outside polygon', function () {
+            var poly = new vecmat.Polygon2d([
+                new vecmat.Vector2d(-1.0, 1.0),
+                new vecmat.Vector2d( 0.0,-0.5),
+                new vecmat.Vector2d( 1.0, 1.0),
+                new vecmat.Vector2d( 1.0,-1.0),
+                new vecmat.Vector2d(-1.0,-1.0)
+            ]);
+            var point = new vecmat.Vector2d(0,0);
+
+            var result = poly.containsPoint(point);
+
+            assert.equal(false, result);
+        });
+    });
+});
+
+
