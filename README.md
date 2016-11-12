@@ -1,6 +1,8 @@
 lethexa-vecmat
 --------------
 
+[![Build Status](https://travis-ci.org/lethexa/lethexa-vecmat.svg?branch=master)](https://travis-ci.org/lethexa/lethexa-vecmat)
+
 This library contains implementations for vectors, matrices and quaternions for
 3D calculations.
 
