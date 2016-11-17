@@ -1345,6 +1345,23 @@ describe('Polygon2d', function () {
             assert.equal(false, result);
         });
     });
+
+    describe('#createBoundingPolygon2d()', function () {
+        it('should return a bounding polygon for the given vector-cloud', function () {
+            var points = [
+                new vecmat.Vector2d(-1.0, 1.0),
+                new vecmat.Vector2d( 0.0,-0.5),
+                new vecmat.Vector2d( 1.0, 1.0),
+                new vecmat.Vector2d( 1.0,-1.0),
+                new vecmat.Vector2d(-1.0,-1.0)
+            ];
+            var boundingPoly = new vecmat.createBoundingPolygon(points);
+            assert.equal(true, points[0].isEqualTo(boundingPoly[0]));
+            assert.equal(true, points[2].isEqualTo(boundingPoly[1]));
+            assert.equal(true, points[3].isEqualTo(boundingPoly[2]));
+            assert.equal(true, points[4].isEqualTo(boundingPoly[3]));
+        });
+    });
 });
 
 
