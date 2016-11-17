@@ -1289,6 +1289,53 @@ describe('Sphere', function () {
 
 
 
+describe('Line2d', function () {
+
+    describe('#isEqualTo()', function () {
+        it('should return true if both are equal', function () {
+            var p1 = new vecmat.Line2d(new vecmat.Vector2d(0.0, 0.0), new vecmat.Vector2d(1.0, 1.0));
+            var p2 = new vecmat.Line2d(new vecmat.Vector2d(0.0, 0.0), new vecmat.Vector2d(1.0, 1.0));
+
+            var result = p1.isEqualTo(p2);
+
+            assert.equal(true, result);
+        });
+    });
+
+    describe('#isEqualTo()', function () {
+        it('should return false if both are NOT equal', function () {
+            var p1 = new vecmat.Line2d(new vecmat.Vector2d(0.0, 0.0), new vecmat.Vector2d(1.0, 1.0));
+            var p2 = new vecmat.Line2d(new vecmat.Vector2d(0.0, 0.0), new vecmat.Vector2d(2.0, 2.0));
+
+            var result = p1.isEqualTo(p2);
+
+            assert.equal(false, result);
+        });
+    });
+
+    describe('#getAngleToXAxis()', function () {
+        it('should return the angle to the X-axis', function () {
+            var line = new vecmat.Line2d(new vecmat.Vector2d(0.0, 0.0), new vecmat.Vector2d(1.0, 1.0));
+
+            assert.equal(line.getAngleToXAxis() * 180.0 / Math.PI, 45.0);
+        });
+    });
+
+    describe('#isPointOnLeftOfLine()', function () {
+        it('should return true if point is left of line', function () {
+            var line = new vecmat.Line2d(new vecmat.Vector2d(0.0, 0.0), new vecmat.Vector2d(1.0, 1.0));
+	    var point = new vecmat.Vector2d(1.0, 2.0);
+	    
+            assert.equal(line.isPointOnLeftOfLine(point), true);
+        });
+    });
+
+});
+
+
+
+
+
 describe('Polygon2d', function () {
 
     describe('#isEqualTo()', function () {
