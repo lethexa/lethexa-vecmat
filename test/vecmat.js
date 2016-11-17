@@ -1393,7 +1393,7 @@ describe('Polygon2d', function () {
         });
     });
 
-    describe('#createBoundingPolygon2d()', function () {
+    describe('#createBoundingPolygon()', function () {
         it('should return a bounding polygon for the given vector-cloud', function () {
             var points = [
                 new vecmat.Vector2d(-1.0, 1.0),
