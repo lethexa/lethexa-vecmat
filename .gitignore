@@ -6,3 +6,4 @@
 /coverage/
 results.txt
 npm-debug.log
+/nbproject/private/

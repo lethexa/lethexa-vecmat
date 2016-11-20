@@ -1206,6 +1206,57 @@ describe('Plane', function () {
 
 
 
+describe('Box3d', function () {
+
+    describe('#isEqualTo()', function () {
+        it('should return true if both are equal', function () {
+            var b1 = new vecmat.Box3d(new vecmat.Vector3d(0.0, 0.0, 0.0), new vecmat.Vector3d(10.0, 10.0, 10.0));
+            var b2 = new vecmat.Box3d(new vecmat.Vector3d(0.0, 0.0, 0.0), new vecmat.Vector3d(10.0, 10.0, 10.0));
+
+            var result = b1.isEqualTo(b2);
+
+            assert.equal(true, result);
+        });
+    });
+
+    describe('#isEqualTo()', function () {
+        it('should return false if both are NOT equal', function () {
+            var b1 = new vecmat.Box3d(vecmat.vector3dFromElements(0.0, 0.0, 0.0), vecmat.vector3dFromElements(10.0, 10.0, 10.0));
+            var b2 = new vecmat.Box3d(vecmat.vector3dFromElements(0.0, 0.0, 0.0), vecmat.vector3dFromElements(20.0, 20.0, 20.0));
+
+            var result = b1.isEqualTo(b2);
+
+            assert.equal(false, result);
+        });
+    });
+
+    describe('#containsPoint()', function () {
+        it('should return true if point is contained in the box', function () {
+            var box = new vecmat.Box3d(vecmat.vector3dFromElements(5.0, 5.0, 5.0), vecmat.vector3dFromElements(10.0, 10.0, 10.0));
+            var pt = vecmat.vector3dFromElements(7.0, 7.0, 7.0);
+
+            var result = box.containsPoint(pt);
+
+            assert.equal(true, result);
+        });
+    });
+
+    describe('#containsPoint()', function () {
+        it('should return true if point is contained in the box', function () {
+            var box = new vecmat.Box3d(vecmat.vector3dFromElements(5.0, 5.0, 5.0), vecmat.vector3dFromElements(10.0, 10.0, 10.0));
+            var pt = vecmat.vector3dFromElements(0.0, 0.0, 0.0);
+
+            var result = box.containsPoint(pt);
+
+            assert.equal(false, result);
+        });
+    });
+});
+
+
+
+
+
 describe('Sphere', function () {
 
     describe('#isEqualTo()', function () {
