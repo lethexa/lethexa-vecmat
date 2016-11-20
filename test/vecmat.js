@@ -1334,6 +1334,23 @@ describe('Sphere', function () {
             assert.deepEqual(undefined, result);
         });
     });
+
+    describe('#getBoundingBox3d()', function () {
+        it('should return a valid bounding box for the sphere', function () {
+            var sphere = new vecmat.Sphere(
+              new vecmat.Vector3d(0,0,0),
+              1
+            );
+            var box = new vecmat.Box3d(
+                vecmat.vector3dFromElements(-1.0, -1.0, -1.0), 
+                vecmat.vector3dFromElements(1.0, 1.0, 1.0)
+            );
+
+            var result = box.isEqualTo(sphere.getBoundingBox3d());
+
+            assert.equal(true, result);
+        });
+    });
 });
 
 
