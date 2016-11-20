@@ -1351,6 +1351,34 @@ describe('Sphere', function () {
             assert.equal(true, result);
         });
     });
+
+    describe('#containsPoint()', function () {
+        it('should return true if point is contained in the sphere', function () {
+            var sphere = new vecmat.Sphere(
+              new vecmat.Vector3d(0,0,0),
+              5
+            );
+            var pt = vecmat.vector3dFromElements(1.0, 1.0, 1.0);
+
+            var result = sphere.containsPoint(pt);
+
+            assert.equal(true, result);
+        });
+    });
+
+    describe('#containsPoint()', function () {
+        it('should return false if point is NOT contained in the sphere', function () {
+            var sphere = new vecmat.Sphere(
+              new vecmat.Vector3d(0,0,0),
+              5
+            );
+            var pt = vecmat.vector3dFromElements(5.0, 5.0, 5.0);
+
+            var result = sphere.containsPoint(pt);
+
+            assert.equal(false, result);
+        });
+    });
 });
 
 
