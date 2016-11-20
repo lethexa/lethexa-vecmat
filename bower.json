@@ -1,7 +1,7 @@
 {
   "name": "lethexa-vecmat",
   "main": "lib/vecmat.js",
-  "version": "1.2.10",
+  "version": "1.2.11",
   "authors": [
     "Tim Leerhoff <tleerhof@web.de>"
   ],
