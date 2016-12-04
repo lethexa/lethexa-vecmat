@@ -12,7 +12,7 @@ module.exports = function (grunt) {
             },
             dist: {
                 src: ['lib/**/*.js'],
-                dest: 'dist/<%= pkg.name %>.js'
+                dest: '<%= pkg.name %>.js'
             }
         },
 
@@ -80,8 +80,8 @@ module.exports = function (grunt) {
                 banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> Copyright by <%= pkg.author.name %> <%= pkg.author.email %> */\n'
             },
             build: {
-                src: 'dist/<%= pkg.name %>.js',
-                dest: 'build/<%= pkg.name %>.min.js'
+                src: '<%= pkg.name %>.js',
+                dest: '<%= pkg.name %>.min.js'
             }
         }
     });
