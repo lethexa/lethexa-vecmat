@@ -1257,6 +1257,98 @@ describe('Box3d', function () {
 
 
 
+describe('Circle2d', function () {
+
+    describe('#isEqualTo()', function () {
+        it('should return true if both are equal', function () {
+            var p1 = new vecmat.Circle2d(new vecmat.Vector2d(0.0, 0.0), 10);
+            var p2 = new vecmat.Circle2d(new vecmat.Vector2d(0.0, 0.0), 10);
+
+            var result = p1.isEqualTo(p2);
+
+            assert.equal(true, result);
+        });
+    });
+
+    describe('#isEqualTo()', function () {
+        it('should return false if both are NOT equal', function () {
+            var p1 = new vecmat.Circle2d(new vecmat.Vector2d(0.0, 0.0), 10);
+            var p2 = new vecmat.Circle2d(new vecmat.Vector2d(0.0, 0.0), 20);
+
+            var result = p1.isEqualTo(p2);
+
+            assert.equal(false, result);
+        });
+    });
+
+    describe('#getBoundingBox2d()', function () {
+        it('should return a valid bounding box for the sphere', function () {
+            var sphere = new vecmat.Circle2d(
+              new vecmat.Vector2d(0,0,0),
+              1
+            );
+            var box = new vecmat.Box2d(
+                vecmat.vector2dFromElements(-1.0, -1.0), 
+                vecmat.vector2dFromElements(1.0, 1.0)
+            );
+
+            var result = box.isEqualTo(sphere.getBoundingBox2d());
+
+            assert.equal(true, result);
+        });
+    });
+
+    describe('#containsPoint()', function () {
+        it('should return true if point is contained in the sphere', function () {
+            var sphere = new vecmat.Circle2d(
+              new vecmat.Vector2d(0,0),
+              5
+            );
+            var pt = vecmat.vector2dFromElements(1.0, 1.0);
+
+            var result = sphere.containsPoint(pt);
+
+            assert.equal(true, result);
+        });
+    });
+
+    describe('#containsPoint()', function () {
+        it('should return false if point is NOT contained in the sphere', function () {
+            var sphere = new vecmat.Circle2d(
+              new vecmat.Vector2d(0,0),
+              5
+            );
+            var pt = vecmat.vector2dFromElements(5.0, 5.0);
+
+            var result = sphere.containsPoint(pt);
+
+            assert.equal(false, result);
+        });
+    });
+
+    describe('#tangentFrom()', function () {
+        it('should return the tangent points from the given point', function () {
+            var sphere = new vecmat.Circle2d(
+              new vecmat.Vector2d(0,0),
+              1
+            );
+            var pt = vecmat.vector2dFromElements(2.0, 0.0);
+
+            var expected = {
+                p1: vecmat.vector2dFromElements(0.5000000000000003, 0.8660254037844385),
+                p2: vecmat.vector2dFromElements(0.5000000000000001, -0.8660254037844386)
+            };
+            var result = sphere.tangentFrom(pt);
+
+            assert.deepEqual(result, expected);
+        });
+    });
+});
+
+
+
+
+
 describe('Sphere', function () {
 
     describe('#isEqualTo()', function () {

@@ -2147,6 +2147,96 @@
 
 
     /**
+     * A circle.
+     * @class Circle2d
+     * @constructor
+     * @param v {Vector2d} Position
+     * @param r {Number} Radius
+     */
+    exports.Circle2d = function(v, r) {
+      this._v = v;
+      this._r = r;
+      this._r2 = r*r;
+    };
+  
+    /**
+     * Checks for equality and returns true if equal.
+     * Important: This function checks for equality of the vectors not the planes !
+     * @method isEqualTo
+     * @param p {Circle2d} The sphere to check against.
+     * @return True if both are equal 
+     */ 
+    exports.Circle2d.prototype.isEqualTo = function(p) {
+        if(!this._v.isEqualTo(p._v))
+          return false;
+        if(this._r !== p._r)
+          return false;
+        return true;
+    };
+
+    /**
+     * Calculates the bounding box of the sphere.
+     * @method createBoundingBox3d
+     * @return {Box2d} Intersection data.
+     */
+    exports.Circle2d.prototype.getBoundingBox2d = function() {
+        var x = this._v.x();
+        var y = this._v.y();
+        return new exports.Box2d(
+            new exports.vector2dFromElements(x - this._r, y - this._r),
+            new exports.vector2dFromElements(x + this._r, y + this._r)
+        );
+    };
+  
+    /**
+     * Checks if point is contained in this sphere.
+     * @method containsPoint
+     * @param pt {Vector2d} The point to check.
+     * @return True if point in sphere.
+     */ 
+    exports.Circle2d.prototype.containsPoint = function (pt) {
+        return this._v.sub(pt).lengthSquared() <= this._r2;
+    };
+  
+    /**
+     * Calculates the tangent-points from a point.
+     * @method tangentFrom
+     * @param pt {Vector3d} The point.
+     * @return The tangent points.
+     */ 
+    exports.Circle2d.prototype.tangentFrom = function (pt) {
+        var cx = this._v.x();
+        var cy = this._v.y();
+        var px = pt.x();
+        var py = pt.y();
+        var radius = this._r;
+        var dx = cx - px;
+        var dy = cy - py;
+        var dd = Math.sqrt(dx * dx + dy * dy);
+        var a = Math.asin(radius / dd);
+        var b = Math.atan2(dy, dx);
+        var t1 = b - a;
+        var t2 = b + a;
+        
+        return {
+            p1: exports.vector2dFromElements(radius *  Math.sin(t1), radius * -Math.cos(t1)),
+            p2: exports.vector2dFromElements(radius * -Math.sin(t2), radius *  Math.cos(t2))
+        };
+    };
+
+    /**
+     * Creates a string of the sphere
+     * @method toString
+     * @return {String} Sphere as string
+     */
+    exports.Circle2d.prototype.toString = function () {
+        return 'c=' + this._v + ', r=' + this._r;
+    };
+
+
+
+
+    /**
      * A sphere.
      * @class Sphere
      * @constructor
@@ -2226,7 +2316,7 @@
         var x = this._v.x();
         var y = this._v.y();
         var z = this._v.z();
-        return new module.exports.Box3d(
+        return new exports.Box3d(
             new exports.vector3dFromElements(x - this._r, y - this._r, z - this._r),
             new exports.vector3dFromElements(x + this._r, y + this._r, z + this._r)
         );
@@ -2240,6 +2330,33 @@
      */ 
     exports.Sphere.prototype.containsPoint = function (pt) {
         return this._v.sub(pt).lengthSquared() <= this._r2;
+    };
+  
+    /**
+     * Calculates the tangent from a point.
+     * @method tangentFrom
+     * @param pt {Vector3d} The point.
+     * @return The tangent point.
+     */ 
+    exports.Sphere.prototype.tangentFrom = function (pt) {
+        // find tangents
+        var cx = this._v.x();
+        var cy = this._v.y();
+        var px = pt.x();
+        var py = pt.y();
+        var radius = this._r;
+        dx = cx - px;
+        dy = cy - py;
+        dd = Math.sqrt(dx * dx + dy * dy);
+        a = Math.asin(radius / dd);
+        b = Math.atan2(dy, dx);
+        t1 = b - a;
+        t2 = b + a;
+        
+        return {
+            p1: exports.vector3dFromElements(radius *  Math.sin(t1), radius * -Math.cos(t1)),
+            p2: exports.vector3dFromElements(radius * -Math.sin(t2), radius *  Math.cos(t2))
+        };
     };
 
     /**
