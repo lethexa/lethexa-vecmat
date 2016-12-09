@@ -2217,10 +2217,13 @@
         var b = Math.atan2(dy, dx);
         var t1 = b - a;
         var t2 = b + a;
+        //console.log('dx', dx, 'dy', dy, 'radius', radius, 'dd', dd, 'radius / dd', radius / dd, 'a', a, 'b', b, 't1', t1, 't2', t2)
         
         return {
             p1: exports.vector2dFromElements(radius *  Math.sin(t1), radius * -Math.cos(t1)),
-            p2: exports.vector2dFromElements(radius * -Math.sin(t2), radius *  Math.cos(t2))
+            p2: exports.vector2dFromElements(radius * -Math.sin(t2), radius *  Math.cos(t2)),
+            center: exports.vector2dFromElements(-radius * Math.cos(b), radius * -Math.sin(b)),
+            arclength: 2*a
         };
     };
 

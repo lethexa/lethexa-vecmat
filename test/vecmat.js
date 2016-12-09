@@ -1327,7 +1327,7 @@ describe('Circle2d', function () {
     });
 
     describe('#tangentFrom()', function () {
-        it('should return the tangent points from the given point', function () {
+        it('should return the tangent points from the given point 1', function () {
             var sphere = new vecmat.Circle2d(
               new vecmat.Vector2d(0,0),
               1
@@ -1336,7 +1336,29 @@ describe('Circle2d', function () {
 
             var expected = {
                 p1: vecmat.vector2dFromElements(0.5000000000000003, 0.8660254037844385),
-                p2: vecmat.vector2dFromElements(0.5000000000000001, -0.8660254037844386)
+                p2: vecmat.vector2dFromElements(0.5000000000000001, -0.8660254037844386),
+                center: vecmat.vector2dFromElements(1, -1.2246467991473532e-16),
+                arclength: 1.0471975511965979
+            };
+            var result = sphere.tangentFrom(pt);
+
+            assert.deepEqual(result, expected);
+        });
+    });
+
+    describe('#tangentFrom()', function () {
+        it('should return the tangent points from the given point 2', function () {
+            var sphere = new vecmat.Circle2d(
+              new vecmat.Vector2d(0,0),
+              1
+            );
+            var pt = vecmat.vector2dFromElements(2.0, 2.0);
+
+            var expected = {
+                p1: vecmat.vector2dFromElements(-0.41143782776614796, 0.9114378277661475),
+                p2: vecmat.vector2dFromElements(0.9114378277661477, -0.41143782776614757),
+                center: vecmat.vector2dFromElements(0.7071067811865475, 0.7071067811865476),
+                arclength: 0.7227342478134156
             };
             var result = sphere.tangentFrom(pt);
 
