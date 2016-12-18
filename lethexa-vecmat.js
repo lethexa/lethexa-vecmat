@@ -1926,8 +1926,9 @@
      * @param z2 {Number} z-coord of second point. 
      */
     exports.box3dFromElements = function (x1, y1, z1, x2, y2, z2) {
-        this._pt1 = exports.vector3dFromElements(x1, y1, z1);
-        this._pt2 = exports.vector3dFromElements(x2, y2, z2);
+        var pt1 = exports.vector3dFromElements(x1, y1, z1);
+        var pt2 = exports.vector3dFromElements(x2, y2, z2);
+        return exports.Box3d(pt1, pt2);
     };
 
     /**
@@ -2054,8 +2055,9 @@
      * @param y2 {Number} y-coord of second point. 
      */
     exports.box2dFromElements = function (x1, y1, x2, y2) {
-        this._pt1 = exports.vector2dFromElements(x1, y1);
-        this._pt2 = exports.vector2dFromElements(x2, y2);
+        var pt1 = exports.vector2dFromElements(x1, y1);
+        var pt2 = exports.vector2dFromElements(x2, y2);
+        return exports.Box2d(pt1, pt2);
     };
 
     /**
@@ -2586,7 +2588,7 @@
      * A two-dimensional polygon.
      * @class Polygon2d
      * @constructor
-     * @param corners {Array[Vector3d]} The corners-points as array of 2d-vectors.
+     * @param corners {Array[Vector2d]} The corners-points as array of 2d-vectors.
      */
     exports.Polygon2d = function (corners) {
         this._corners = corners;
