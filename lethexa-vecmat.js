@@ -2497,6 +2497,152 @@
 
 
     /**
+     * A sector.
+     * @class Sector3d
+     * @constructor
+     * @param v {Vector2d} Position
+     * @param minHorAngle {Number} Start horizontal angle in radians (0..2PI)
+     * @param maxHorAngle {Number} End horizontal angle in radians (0..2PI)
+     * @param minVerAngle {Number} Start vertical angle in radians (-PI..PI)
+     * @param maxVerAngle {Number} End vertical angle in radians (-PI..PI)
+     * @param radius {Number} The radius of the segment (Optional)
+     */
+    exports.Sector3d = function (v, minHorAngle, maxHorAngle, minVerAngle, maxVerAngle, radius) {
+        this._v = v;
+        this._minHorAngle = minHorAngle;
+        this._maxHorAngle = maxHorAngle;
+        this._minVerAngle = minVerAngle;
+        this._maxVerAngle = maxVerAngle;
+        this._radius = radius;
+        this._radius2 = radius !== undefined ? radius * radius : undefined;
+    };
+
+    /**
+     * Copies this ray to a new one.
+     * @method clone
+     * @return The cloned ray 
+     */
+    exports.Sector3d.prototype.clone = function () {
+        return new exports.Sector2d(
+                this._v, 
+                this._minHorAngle,
+                this._maxHorAngle,
+                this._minVerAngle,
+                this._maxVerAngle,
+                this._radius
+        );
+    };
+
+    /**
+     * Rounds the elements to the given fraction-digits
+     * @method round
+     * @param digits {Number} The number of digits to round.
+     * @return A copied object with rounded elements 
+     */
+    exports.Sector3d.prototype.round = function (digits) {
+        return new exports.Sector2d(
+                this._v.round(digits), 
+                round(this._minHorAngle, digits),
+                round(this._maxHorAngle, digits), 
+                round(this._minVerAngle, digits),
+                round(this._maxVerAngle, digits), 
+                this._radius !== undefined ? round(this._radius, digits) : undefined
+        );
+    };
+
+    /**
+     * Checks for equality and returns true if equal.
+     * Important: This function checks for equality of the vectors !
+     * @method isEqualTo
+     * @param p {Box3d} The box to check against.
+     * @return True if both are equal 
+     */
+    exports.Sector3d.prototype.isEqualTo = function (p) {
+        if (!this._v.isEqualTo(p._v))
+            return false;
+        if (this._minHorAngle !== p._minHorAngle)
+            return false;
+        if (this._maxHorAngle !== p._maxHorAngle)
+            return false;
+        if (this._minVerAngle !== p._minVerAngle)
+            return false;
+        if (this._maxVerAngle !== p._maxVerAngle)
+            return false;
+        if (this._radius !== p._radius)
+            return false;
+        return true;
+    };
+
+    /**
+     * Checks if point is contained in this box.
+     * @method containsPoint
+     * @param angle {Number} The angle to test against.
+     * @return True if angle in sector.
+     */
+    exports.Sector3d.prototype.containsHorizontalAngle = function(angle) {
+        var minAngle = toRangePI_PI(this._minHorAngle);
+        var maxAngle = toRangePI_PI(this._maxHorAngle);
+        var testAngle = toRangePI_PI(angle);
+
+        if(minAngle < maxAngle) {
+            // Kein Nulldurchgang...
+            return (testAngle >= minAngle) && (testAngle <= maxAngle);
+        } else {
+            // Mit Nulldurchgang...
+            return (testAngle <= maxAngle) || (testAngle >= minAngle);
+        }
+    };
+
+    /**
+     * Checks if point is contained in this box.
+     * @method containsPoint
+     * @param angle {Number} The angle to test against.
+     * @return True if angle in sector.
+     */
+    exports.Sector3d.prototype.containsVerticalAngle = function(angle) {
+        var minAngle = toRangePI_PI(this._minVerAngle);
+        var maxAngle = toRangePI_PI(this._maxVerAngle);
+        var testAngle = toRangePI_PI(angle);
+
+        if(minAngle < maxAngle) {
+            // Kein Nulldurchgang...
+            return (testAngle >= minAngle) && (testAngle <= maxAngle);
+        } else {
+            // Mit Nulldurchgang...
+            return (testAngle <= maxAngle) || (testAngle >= minAngle);
+        }
+    };
+
+    /**
+     * Checks if point is contained in this sector.
+     * @method containsPoint
+     * @param pt {Vector3d} The point to check.
+     * @return True if point in sector.
+     */
+    exports.Sector3d.prototype.containsPoint = function(pt) {
+        var relPt = pt.sub(this._v);
+        if(this._radius2) {
+            if(relPt.squaredLength() > this._radius2) {
+                return false;
+            }
+        }
+        return this.containsHorizontalAngle(relPt.yaw()) && this.containsVerticalAngle(relPt.pitch());
+    };
+
+    /**
+     * Creates a string of the sector
+     * @method toString
+     * @return {String} Sector2d as string
+     */
+    exports.Sector3d.prototype.toString = function () {
+        return 'p=' + this._v + ', minHorAngle=' + toRange0_2PI(this._minHorAngle) + ', maxHorAngle=' + toRange0_2PI(this._maxHorAngle) + ', minVerAngle=' + toRange0_2PI(this._minVerAngle) + ', maxVerAngle=' + toRange0_2PI(this._maxVerAngle) + ', radius=' + this._radius;
+    };
+
+
+
+
+
+    /**
      * A circle.
      * @class Circle2d
      * @constructor

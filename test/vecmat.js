@@ -1594,6 +1594,54 @@ describe('Sector2d', function () {
 
 
 
+describe('Sector3d', function () {
+
+    describe('#isEqualTo()', function () {
+        it('should return true if both are equal', function () {
+            var p1 = new vecmat.Sector3d(new vecmat.Vector3d(0.0, 0.0, 0.0), 0, Math.PI, -Math.PI/2, Math.PI/2);
+            var p2 = new vecmat.Sector3d(new vecmat.Vector3d(0.0, 0.0, 0.0), 0, Math.PI, -Math.PI/2, Math.PI/2);
+
+            var result = p1.isEqualTo(p2);
+
+            assert.equal(true, result);
+        });
+    });
+
+    describe('#isEqualTo()', function () {
+        it('should return false if both are NOT equal', function () {
+            var p1 = new vecmat.Sector3d(new vecmat.Vector3d(0.0, 0.0, 0.0), 0, 2*Math.PI, -Math.PI/2, Math.PI/2);
+            var p2 = new vecmat.Sector3d(new vecmat.Vector3d(0.0, 0.0, 0.0), 0, Math.PI, -Math.PI/2, Math.PI/2);
+
+            var result = p1.isEqualTo(p2);
+
+            assert.equal(false, result);
+        });
+    });
+
+    describe('#containsPoint()', function () {
+        it('should return true if point is contained', function () {
+            var s = new vecmat.Sector3d(new vecmat.Vector3d(0.0, 0.0, 0.0), 0, Math.PI/2.0, -Math.PI/2, Math.PI/2);
+            var p = new vecmat.Vector3d(1.0, 1.0, 0.0);
+
+            assert.equal(s.containsPoint(p), true);
+        });
+    });
+
+    describe('#containsPoint()', function () {
+        it('should return false if point is NOT contained', function () {
+            var s = new vecmat.Sector3d(new vecmat.Vector3d(0.0, 0.0, 0.0), 0, Math.PI/2.0, -Math.PI/2, Math.PI/2);
+            var p = new vecmat.Vector3d(-1.0, 1.0, 0.0);
+
+            assert.equal(s.containsPoint(p), false);
+        });
+    });
+
+});
+
+
+
+
+
 describe('Line3d', function () {
 
     describe('#isEqualTo()', function () {
