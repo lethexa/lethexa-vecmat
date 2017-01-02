@@ -65,6 +65,32 @@
 
 
     /**
+     * Converts a vector in array form to OpenGL.
+     * @method toOpenGL
+     * @static
+     * @param v {Array} The array to convert
+     * @return {Array} The OpenGL array
+     */
+    exports.toOpenGL = function (v) {
+        return [v[0], v[2], -v[1]];
+    };
+
+    /**
+     * Converts a vector in array form from OpenGL.
+     * @method fromOpenGL
+     * @static
+     * @param v {Array} The array to convert
+     * @return {Array} The OpenGL array
+     */
+    exports.fromOpenGL = function (v) {
+        return [v[0], -v[2], v[1]];
+    };
+
+
+
+
+
+    /**
      * Calculates the intersection at y-axis for a given line
      * @method intersectionAtPositiveYAxis2d
      * @for Vector3d
@@ -156,8 +182,8 @@
      * @method vector2dFromElements
      * @for Vector2d
      * @static
-     * @param elements {Number} The x-value
-     * @param elements {Number} The y-value
+     * @param x {Number} The x-value
+     * @param y {Number} The y-value
      * @return {Vector2d} The resulting vector
      */
     exports.vector2dFromElements = function (x, y) {
@@ -181,9 +207,19 @@
     };
 
     /**
-     * Rounds the elements of the vector to the given fraction-digits
+     * Copies this vector to a new one.
+     * @method clone
+     * @return The new vector 
+     */
+    exports.Vector2d.prototype.clone = function () {
+        return new exports.Vector2d(this._x, this._y);
+    };
+
+    /**
+     * Rounds the elements to the given fraction-digits
      * @method round
-     * @return The vector with rounded elements 
+     * @param digits {Number} Number of digits to round.
+     * @return The result with rounded elements 
      */
     exports.Vector2d.prototype.round = function (digits) {
         return new exports.Vector2d(
@@ -293,6 +329,7 @@
     /**
      * Adds this vector to another
      * @method add
+     * @param v {Vector2d} The vector to add.
      * @return {Vector2d} The resulting sum
      */
     exports.Vector2d.prototype.add = function (v) {
@@ -305,6 +342,7 @@
     /**
      * Subtracts another vector from this
      * @method sub
+     * @param v {Vector2d} The vector to subtract.
      * @return {Vector2d} The resulting subtraction
      */
     exports.Vector2d.prototype.sub = function (v) {
@@ -317,6 +355,7 @@
     /**
      * Multiplies this vector and a scalar value 
      * @method mul
+     * @param s {Number} The scalar to multiply.
      * @return {Vector2d} The resulting vector
      */
     exports.Vector2d.prototype.mul = function (s) {
@@ -326,6 +365,7 @@
     /**
      * Multiplies this vector and a scalar value 
      * @method mulScalar
+     * @param s {Number} The scalar to multiply.
      * @return {Vector2d} The resulting vector
      */
     exports.Vector2d.prototype.mulScalar = function (s) {
@@ -462,13 +502,29 @@
     };
 
     /**
+     * Creates a vector from an OpenGL array
+     * @method vector3dFromOpenGLArray
+     * @for Vector3d
+     * @static
+     * @param elements {Array} The vector as array [x,y,z]
+     * @return {Vector3d} The resulting vector
+     */
+    exports.vector3dFromOpenGLArray = function (elements) {
+        return new exports.Vector3d(
+                elements[0],
+               -elements[2],
+                elements[1]
+                );
+    };
+
+    /**
      * Creates a vector from an the elements x, y, z
      * @method vector3dFromElements
      * @for Vector3d
      * @static
-     * @param elements {Number} The x-value
-     * @param elements {Number} The y-value
-     * @param elements {Number} The z-value
+     * @param x {Number} The x-value
+     * @param y {Number} The y-value
+     * @param z {Number} The z-value
      * @return {Vector3d} The resulting vector
      */
     exports.vector3dFromElements = function (x, y, z) {
@@ -494,8 +550,18 @@
     };
 
     /**
+     * Copies this vector to a new one.
+     * @method clone
+     * @return The new vector 
+     */
+    exports.Vector3d.prototype.clone = function () {
+        return new exports.Vector3d(this._x, this._y, this._z);
+    };
+
+    /**
      * Rounds the elements of the vector to the given fraction-digits
      * @method round
+     * @param digits {Number} Number of digits to round.
      * @return The vector with rounded elements 
      */
     exports.Vector3d.prototype.round = function (digits) {
@@ -630,6 +696,7 @@
     /**
      * Adds this vector to another
      * @method add
+     * @param v {Vector3d} The vector to add.
      * @return {Vector3d} The resulting sum
      */
     exports.Vector3d.prototype.add = function (v) {
@@ -643,6 +710,7 @@
     /**
      * Subtracts another vector from this
      * @method sub
+     * @param v {Vector3d} The vector to subtract.
      * @return {Vector3d} The resulting subtraction
      */
     exports.Vector3d.prototype.sub = function (v) {
@@ -656,6 +724,7 @@
     /**
      * Multiplies this vector and a scalar value 
      * @method mul
+     * @param s {Number} The scalar to multiply.
      * @return {Vector3d} The resulting vector
      */
     exports.Vector3d.prototype.mul = function (s) {
@@ -665,6 +734,7 @@
     /**
      * Multiplies this vector and a scalar value 
      * @method mulScalar
+     * @param s {Number} The scalar to multiply.
      * @return {Vector3d} The resulting vector
      */
     exports.Vector3d.prototype.mulScalar = function (s) {
@@ -716,6 +786,15 @@
      */
     exports.Vector3d.prototype.toArray = function () {
         return [this._x, this._y, this._z];
+    };
+
+    /**
+     * Converts the vector to an array
+     * @method toArray
+     * @return {Array} The array
+     */
+    exports.Vector3d.prototype.toOpenGLArray = function () {
+        return [this._x, this._z, -this._y];
     };
 
     /**
@@ -959,8 +1038,22 @@
     };
 
     /**
+     * Copies this matrix to a new one.
+     * @method clone
+     * @return The cloned matrix 
+     */
+    exports.Matrix3x3.prototype.clone = function () {
+        return new exports.Matrix3x3([
+            [this.e11, this.e12, this.e13],
+            [this.e21, this.e22, this.e23],
+            [this.e31, this.e32, this.e33]
+        ]);
+    };
+
+    /**
      * Rounds the elements of the matrix to the given fraction-digits
      * @method round
+     * @param digits {Number} Number of digits to round.
      * @return The matrix with rounded elements 
      */
     exports.Matrix3x3.prototype.round = function (digits) {
@@ -1046,7 +1139,7 @@
     /**
      * Adds an other Matrix3x3.
      * @method add
-     * @param m {Matrix3x3} The matrix to add
+     * @param m2 {Matrix3x3} The matrix to add
      * @return The resulting matrix
      */
     exports.Matrix3x3.prototype.add = function (m2) {
@@ -1072,7 +1165,7 @@
     /**
      * Subtracts an other Matrix3x3.
      * @method sub
-     * @param m {Matrix3x3} The matrix to subtract
+     * @param m2 {Matrix3x3} The matrix to subtract
      * @return The resulting matrix
      */
     exports.Matrix3x3.prototype.sub = function (m2) {
@@ -1293,8 +1386,7 @@
      * @method quatFromRotation
      * @for Quat
      * @static
-     * @param angle {Number} The angle around the axis
-     * @param axis {Vector3d} The rotation-axis
+     * @param v {Vector3d} The vector
      * @return The rotation-quaternion
      */
     exports.quatFromVector3d = function (v) {
@@ -1322,8 +1414,18 @@
     };
 
     /**
+     * Copies this quaternion to a new one.
+     * @method clone
+     * @return The cloned quaternion 
+     */
+    exports.Quat.prototype.clone = function () {
+        return new exports.Quat(this._r, this._v);
+    };
+
+    /**
      * Rounds the elements of the quaternion to the given fraction-digits
      * @method round
+     * @param digits {Number} Number of digits to round.
      * @return The quaternion with rounded elements 
      */
     exports.Quat.prototype.round = function (digits) {
@@ -1538,7 +1640,7 @@
     /**
      * Multiplies a quaternion and a scalar
      * @method mulScalar
-     * @param q {Number} A number
+     * @param s {Number} A number
      * @return The resulting quaternion
      */
     exports.Quat.prototype.mulScalar = function (s) {
@@ -1553,7 +1655,7 @@
      * @method toEulerAngles
      * @return The euler angles [phi, theta, psi]
      */
-    exports.Quat.prototype.toEulerAngles = function (s) {
+    exports.Quat.prototype.toEulerAngles = function () {
         var e0 = this._r;
         var e1 = this._v.x();
         var e2 = this._v.y();
@@ -1651,6 +1753,12 @@
     };
 
 
+
+
+
+
+
+
     /**
      * Creates a ray from two points.
      * @method rayFromPoints
@@ -1684,6 +1792,28 @@
     exports.Ray = function (start, direction) {
         this._start = start;
         this._direction = direction.unit();
+    };
+
+    /**
+     * Copies this ray to a new one.
+     * @method clone
+     * @return The cloned ray 
+     */
+    exports.Ray.prototype.clone = function () {
+        return new exports.Ray(this._start, this._direction);
+    };
+
+    /**
+     * Rounds the elements to the given fraction-digits
+     * @method round
+     * @param digits {Number} The number of digits to round.
+     * @return A copied object with rounded elements 
+     */
+    exports.Ray.prototype.round = function (digits) {
+        return new exports.Ray(
+                this._start.round(digits),
+                this._direction.round(digits)
+                );
     };
 
     /**
@@ -1748,6 +1878,33 @@
         this._e1 = v2.sub(v1); // Edge 1
         this._e2 = v3.sub(v1); // Edge 2
         this._normal = this._e1.cross(this._e2).unit(); // Plane normal
+    };
+
+    /**
+     * Copies this ray to a new one.
+     * @method clone
+     * @return The cloned ray 
+     */
+    exports.Triangle.prototype.clone = function () {
+        return new exports.Triangle(
+                this._v1, 
+                this._v2, 
+                this._v3
+        );
+    };
+
+    /**
+     * Rounds the elements to the given fraction-digits
+     * @method round
+     * @param digits {Number} The number of digits to round.
+     * @return A copied object with rounded elements 
+     */
+    exports.Triangle.prototype.round = function (digits) {
+        return new exports.Triangle(
+                this._v1.round(digits), 
+                this._v2.round(digits), 
+                this._v3.round(digits)
+        );
     };
 
     /**
@@ -1856,6 +2013,31 @@
     };
 
     /**
+     * Copies this ray to a new one.
+     * @method clone
+     * @return The cloned ray 
+     */
+    exports.Plane.prototype.clone = function () {
+        return new exports.Plane(
+                this._v, 
+                this._n
+        );
+    };
+
+    /**
+     * Rounds the elements to the given fraction-digits
+     * @method round
+     * @param digits {Number} The number of digits to round.
+     * @return A copied object with rounded elements 
+     */
+    exports.Plane.prototype.round = function (digits) {
+        return new exports.Plane(
+                this._v.round(digits), 
+                this._n.round(digits)
+        );
+    };
+
+    /**
      * Checks for equality and returns true if equal.
      * Important: This function checks for equality of the vectors not the planes !
      * @method isEqualTo
@@ -1941,6 +2123,31 @@
     exports.Box3d = function (pt1, pt2) {
         this._pt1 = pt1;
         this._pt2 = pt2;
+    };
+
+    /**
+     * Copies this ray to a new one.
+     * @method clone
+     * @return The cloned ray 
+     */
+    exports.Box3d.prototype.clone = function () {
+        return new exports.Box3d(
+                this._pt1, 
+                this._pt2
+        );
+    };
+
+    /**
+     * Rounds the elements to the given fraction-digits
+     * @method round
+     * @param digits {Number} The number of digits to round.
+     * @return A copied object with rounded elements 
+     */
+    exports.Box3d.prototype.round = function (digits) {
+        return new exports.Box3d(
+                this._pt1.round(digits), 
+                this._pt2.round(digits)
+        );
     };
 
     /**
@@ -2073,6 +2280,31 @@
     };
 
     /**
+     * Copies this ray to a new one.
+     * @method clone
+     * @return The cloned ray 
+     */
+    exports.Box2d.prototype.clone = function () {
+        return new exports.Box2d(
+                this._pt1, 
+                this._pt2
+        );
+    };
+
+    /**
+     * Rounds the elements to the given fraction-digits
+     * @method round
+     * @param digits {Number} The number of digits to round.
+     * @return A copied object with rounded elements 
+     */
+    exports.Box2d.prototype.round = function (digits) {
+        return new exports.Box2d(
+                this._pt1.round(digits), 
+                this._pt2.round(digits)
+        );
+    };
+
+    /**
      * Checks for equality and returns true if equal.
      * Important: This function checks for equality of the vectors !
      * @method isEqualTo
@@ -2149,6 +2381,118 @@
 
 
 
+
+    /**
+     * A sector.
+     * @class Sector2d
+     * @constructor
+     * @param v {Vector2d} Position
+     * @param minAngle {Number} Start angle in radians (0..2PI)
+     * @param maxAngle {Number} End angle in radians (0..2PI)
+     * @param radius {Number} The radius of the segment (Optional)
+     */
+    exports.Sector2d = function (v, minAngle, maxAngle, radius) {
+        this._v = v;
+        this._minAngle = minAngle;
+        this._maxAngle = maxAngle;
+        this._radius = radius;
+        this._radius2 = radius !== undefined ? radius * radius : undefined;
+    };
+
+    /**
+     * Copies this ray to a new one.
+     * @method clone
+     * @return The cloned ray 
+     */
+    exports.Sector2d.prototype.clone = function () {
+        return new exports.Sector2d(
+                this._v, 
+                this._minAngle,
+                this._maxAngle,
+                this._radius
+        );
+    };
+
+    /**
+     * Rounds the elements to the given fraction-digits
+     * @method round
+     * @param digits {Number} The number of digits to round.
+     * @return A copied object with rounded elements 
+     */
+    exports.Sector2d.prototype.round = function (digits) {
+        return new exports.Sector2d(
+                this._v.round(digits), 
+                round(this._minAngle, digits),
+                round(this._maxAngle, digits), 
+                this._radius !== undefined ? round(this._radius, digits) : undefined
+        );
+    };
+
+    /**
+     * Checks for equality and returns true if equal.
+     * Important: This function checks for equality of the vectors !
+     * @method isEqualTo
+     * @param p {Box3d} The box to check against.
+     * @return True if both are equal 
+     */
+    exports.Sector2d.prototype.isEqualTo = function (p) {
+        if (!this._v.isEqualTo(p._v))
+            return false;
+        if (this._minAngle !== p._minAngle)
+            return false;
+        if (this._maxAngle !== p._maxAngle)
+            return false;
+        if (this._radius !== p._radius)
+            return false;
+        return true;
+    };
+
+    /**
+     * Checks if point is contained in this box.
+     * @method containsPoint
+     * @param angle {Number} The angle to test against.
+     * @return True if angle in sector.
+     */
+    exports.Sector2d.prototype.containsAngle = function(angle) {
+        var minAngle = toRangePI_PI(this._minAngle);
+        var maxAngle = toRangePI_PI(this._maxAngle);
+        var testAngle = toRangePI_PI(angle);
+
+        if(minAngle < maxAngle) {
+            // Kein Nulldurchgang...
+            return (testAngle >= minAngle) && (testAngle <= maxAngle);
+        } else {
+            // Mit Nulldurchgang...
+            return (testAngle <= maxAngle) || (testAngle >= minAngle);
+        }
+    };
+
+    /**
+     * Checks if point is contained in this sector.
+     * @method containsPoint
+     * @param pt {Vector3d} The point to check.
+     * @return True if point in sector.
+     */
+    exports.Sector2d.prototype.containsPoint = function(pt) {
+        var relPt = pt.sub(this._v);
+        if(this._radius2 && (relPt.squaredLength() > this._radius2))
+            return false;
+        return this.containsAngle(relPt.yaw());
+    };
+
+    /**
+     * Creates a string of the sector
+     * @method toString
+     * @return {String} Sector2d as string
+     */
+    exports.Sector2d.prototype.toString = function () {
+        return 'p=' + this._v + ', minAngle=' + toRange0_2PI(this._minAngle) + ', maxAngle=' + toRange0_2PI(this._maxAngle) + ', radius=' + this._radius;
+    };
+
+
+
+
+
     /**
      * A circle.
      * @class Circle2d
@@ -2160,6 +2504,31 @@
         this._v = v;
         this._r = r;
         this._r2 = r * r;
+    };
+
+    /**
+     * Copies this ray to a new one.
+     * @method clone
+     * @return The cloned ray 
+     */
+    exports.Circle2d.prototype.clone = function () {
+        return new exports.Circle2d(
+                this._v, 
+                this._r
+        );
+    };
+
+    /**
+     * Rounds the elements to the given fraction-digits
+     * @method round
+     * @param digits {Number} The number of digits to round.
+     * @return A copied object with rounded elements 
+     */
+    exports.Sector2d.prototype.round = function (digits) {
+        return new exports.Circle2d(
+                this._v.round(digits), 
+                round(this._r, digits)
+        );
     };
 
     /**
@@ -2253,6 +2622,31 @@
         this._v = v;
         this._r = r;
         this._r2 = r * r;
+    };
+
+    /**
+     * Copies this ray to a new one.
+     * @method clone
+     * @return The cloned ray 
+     */
+    exports.Sphere.prototype.clone = function () {
+        return new exports.Sphere(
+                this._v, 
+                this._r
+        );
+    };
+
+    /**
+     * Rounds the elements to the given fraction-digits
+     * @method round
+     * @param digits {Number} The number of digits to round.
+     * @return A copied object with rounded elements 
+     */
+    exports.Sphere.prototype.round = function (digits) {
+        return new exports.Sphere(
+                this._v.round(digits), 
+                round(this._r, digits)
+        );
     };
 
     /**
@@ -2379,134 +2773,94 @@
 
 
     /**
-     * A line.
-     * @class line
+     * A 3d-line.
+     * @class Line
      * @constructor
-     * @param v {Vector3d} Position
-     * @param r {Number} Radius
+     * @param p1 {Vector2d} Point 1
+     * @param p2 {Vector2d} Point 2
      */
-    exports.Line3d = function (v, r) {
-        this._v = v;
-        this._r = r;
-        this._r2 = r * r;
+    exports.Line3d = function (p1, p2) {
+        this._p1 = p1;
+        this._p2 = p2;
+    };
+
+    /**
+     * Copies this ray to a new one.
+     * @method clone
+     * @return The cloned ray 
+     */
+    exports.Line3d.prototype.clone = function () {
+        return new exports.Line3d(
+                this._p1, 
+                this._p2
+        );
+    };
+
+    /**
+     * Rounds the elements to the given fraction-digits
+     * @method round
+     * @param digits {Number} The number of digits to round.
+     * @return A copied object with rounded elements 
+     */
+    exports.Line3d.prototype.round = function (digits) {
+        return new exports.Line3d(
+                this._p1.round(digits), 
+                this._p2.round(digits)
+        );
     };
 
     /**
      * Checks for equality and returns true if equal.
-     * Important: This function checks for equality of the vectors not the planes !
      * @method isEqualTo
-     * @param p {line} The line to check against.
+     * @param other {Line2d} The line to check against.
      * @return True if both are equal 
      */
-    exports.Line3d.prototype.isEqualTo = function (p) {
-        if (!this._v.isEqualTo(p._v))
+    exports.Line3d.prototype.isEqualTo = function (other) {
+        if (!this._p1.isEqualTo(other._p1))
             return false;
-        if (this._r !== p._r)
+        if (!this._p2.isEqualTo(other._p2))
             return false;
         return true;
     };
 
     /**
-     * Intersects an infinite ray with this line.
-     * @method intersect
-     * @param ray {Ray} The intersecting ray.
-     * @return {Object} Intersection data.
+     * Returns the direction vector of the line
+     * @method getDirection
+     * @return {Vector2d} The direction vector of the line.
      */
-    exports.Line3d.prototype.intersect = function (ray) {
-        var C = this._v;
-        var r = this._r;
-        var O = ray.getStart();
-        var I = ray.getDirection();
-
-        var oc = O.sub(C);
-        var x1 = I.dot(oc);
-        var oc_abs_squared = oc.lengthSquared();
-        var radicant = x1 * x1 - oc_abs_squared + r * r;
-
-        if (radicant < 0.0)
-            return undefined;
-
-        var result;
-        if (radicant === 0.0) {
-            result = -x1;
-        } else {
-            var root = Math.sqrt(radicant);
-            var d1 = -x1 - root;
-            var d2 = -x1 + root;
-            result = d1 < d2 ? d1 : d2; // Take the nearest...
-        }
-
-        var pt = ray.getPointAtLength(result);
-        var normal = pt.sub(C).unit();
-
-        return {
-            object: this,
-            normal: normal,
-            ray: ray,
-            pointOfIntersect: pt,
-            rayLengthOfIntersect: result
-        };
+    exports.Line3d.prototype.getDirection = function () {
+        return this._p2.sub(this._p1);
     };
 
     /**
-     * Calculates the bounding box of the line.
-     * @method createBoundingBox3d
-     * @return {Box3d} Intersection data.
+     * Returns the distance from the given vector to the line
+     * @method distanceTo
+     * @return p {Vector3d} The given vector.
+     * @return {Number} The distance.
      */
-    exports.Line3d.prototype.getBoundingBox3d = function () {
-        var x = this._v.x();
-        var y = this._v.y();
-        var z = this._v.z();
-        return new exports.Box3d(
-                new exports.vector3dFromElements(x - this._r, y - this._r, z - this._r),
-                new exports.vector3dFromElements(x + this._r, y + this._r, z + this._r)
-                );
+    exports.Line3d.prototype.distanceTo = function(p) {
+        var a_sub_p = this._pt1.sub(p);
+        var n = this.getDirection();
+        return a_sub_p.sub( n.mulScalar( a_sub_p.dot(n) ) );
     };
 
     /**
-     * Checks if point is contained in this line.
-     * @method containsPoint
-     * @param pt {Vector3d} The point to check.
-     * @return True if point in line.
+     * Creates the angle to the X-axis.
+     * @method getAngleOfLine
+     * @return The angle in radians. 
      */
-    exports.Line3d.prototype.containsPoint = function (pt) {
-        return this._v.sub(pt).lengthSquared() <= this._r2;
-    };
-
-    /**
-     * Calculates the tangent from a point.
-     * @method tangentFrom
-     * @param pt {Vector3d} The point.
-     * @return The tangent point.
-     */
-    exports.Line3d.prototype.tangentFrom = function (pt) {
-        // find tangents
-        var cx = this._v.x();
-        var cy = this._v.y();
-        var px = pt.x();
-        var py = pt.y();
-        var radius = this._r;
-        dx = cx - px;
-        dy = cy - py;
-        dd = Math.sqrt(dx * dx + dy * dy);
-        a = Math.asin(radius / dd);
-        b = Math.atan2(dy, dx);
-        t1 = b - a;
-        t2 = b + a;
-
-        return {
-            p1: exports.vector3dFromElements(radius * Math.sin(t1), radius * -Math.cos(t1)),
-            p2: exports.vector3dFromElements(radius * -Math.sin(t2), radius * Math.cos(t2))
-        };
+    exports.Line3d.prototype.getAngleToXAxis = function () {
+        var dir = this.getDirection();
+        return Math.atan2(dir.y(), dir.x());
     };
 
     /**
      * Creates a string of the line
      * @method toString
-     * @return {String} line as string
+     * @return {String} Line2d as string
      */
     exports.Line3d.prototype.toString = function () {
-        return 'c=' + this._v + ', r=' + this._r;
+        return 'p1=' + this._p1 + ', p2=' + this._p2;
     };
 
 
@@ -2517,12 +2871,37 @@
      * A 2d-line.
      * @class Line
      * @constructor
-     * @param p1 {Vector2d} Position
-     * @param p2 {Number} Direction
+     * @param p1 {Vector2d} Point 1
+     * @param p2 {Vector2d} Point 2
      */
     exports.Line2d = function (p1, p2) {
         this._p1 = p1;
         this._p2 = p2;
+    };
+
+    /**
+     * Copies this ray to a new one.
+     * @method clone
+     * @return The cloned ray 
+     */
+    exports.Line2d.prototype.clone = function () {
+        return new exports.Line2d(
+                this._p1, 
+                this._p2
+        );
+    };
+
+    /**
+     * Rounds the elements to the given fraction-digits
+     * @method round
+     * @param digits {Number} The number of digits to round.
+     * @return A copied object with rounded elements 
+     */
+    exports.Line2d.prototype.round = function (digits) {
+        return new exports.Line2d(
+                this._p1.round(digits), 
+                this._p2.round(digits)
+        );
     };
 
     /**
@@ -2546,6 +2925,18 @@
      */
     exports.Line2d.prototype.getDirection = function () {
         return this._p2.sub(this._p1);
+    };
+
+    /**
+     * Returns the distance from the given vector to the line
+     * @method distanceTo
+     * @return p {Vector3d} The given vector.
+     * @return {Number} The distance.
+     */
+    exports.Line2d.prototype.distanceTo = function(p) {
+        var a_sub_p = this._pt1.sub(p);
+        var n = this.getDirection();
+        return a_sub_p.sub( n.mulScalar( a_sub_p.dot(n) ) );
     };
 
     /**
@@ -2595,6 +2986,47 @@
     };
 
     /**
+     * Copies this ray to a new one.
+     * @method clone
+     * @return The cloned ray 
+     */
+    exports.Polygon2d.prototype.clone = function () {
+        return new exports.Polygon2d(this._corners);
+    };
+
+    /**
+     * Rounds the elements to the given fraction-digits
+     * @method round
+     * @param digits {Number} The number of digits to round.
+     * @return A copied object with rounded elements 
+     */
+    exports.Polygon2d.prototype.round = function (digits) {
+        var tgtCorners = [];
+        this._corners.forEach(function(point) {
+            tgtCorners.push(point.round(digits));
+        });
+        return new exports.Polygon2d(tgtCorners);
+    };
+
+    /**
+     * Checks for equality and returns true if equal.
+     * @method isEqualTo
+     * @param other {Line2d} The line to check against.
+     * @return True if both are equal 
+     */
+    exports.Polygon2d.prototype.isEqualTo = function (other) {
+        if(this._corners.length !== other._corners.length)
+            return false;
+        for(var i=0;i<this._corners.length;i++) {
+            var corner = this._corners[i];
+            var otherCorner = other._corners[i];
+            if (!corner.isEqualTo(otherCorner))
+                return false;
+        }
+        return true;
+    };
+
+    /**
      * Returns the corners of the polygon.
      * @method corners
      * @return The corners 
@@ -2606,7 +3038,7 @@
     /**
      * Checks for equality and returns true if equal.
      * @method isEqualTo
-     * @param p {Polygon2d} The polygon to check against.
+     * @param poly {Polygon2d} The polygon to check against.
      * @return True if both are equal 
      */
     exports.Polygon2d.prototype.isEqualTo = function (poly) {

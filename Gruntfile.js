@@ -31,7 +31,7 @@ module.exports = function (grunt) {
         },
 
         jshint: {
-            all: ['dist/<%= pkg.name %>.js']
+            all: ['lib/vecmat.js', 'dist/<%= pkg.name %>.js']
         },
         
         mochaTest: {
