@@ -8,6 +8,19 @@
         var multiplier = Math.pow(10.0, digits);
         return Math.round(x * multiplier) / multiplier;
     };
+    exports.roundDigits = round;
+
+    exports.toRadians = function (value) {
+        return value * Math.PI / 180.0;
+    };
+
+    exports.toDegrees = function (value) {
+        return value * 180.0 / Math.PI;
+    };
+
+    exports.isExistent = function(value) {
+        return value !== undefined && value !== null;
+    };
 
     var toRange0_2PI = function (a) {
         while (a >= twoPI)
@@ -16,6 +29,7 @@
             a += twoPI;
         return a;
     };
+    exports.toRange0_2PI = toRange0_2PI;
 
     var toRangePI_PI = function (a) {
         while (a < - Math.PI)
@@ -23,6 +37,31 @@
         while (a >= Math.PI)
             a -= twoPI;
         return a;
+    };
+    exports.toRangePI_PI = toRangePI_PI;
+
+
+
+    /**
+     * Converts a vector in array form to OpenGL.
+     * @method toOpenGL
+     * @static
+     * @param v {Array} The array to convert
+     * @return {Array} The OpenGL array
+     */
+    exports.toOpenGL = function (v) {
+        return [v[0], v[2], -v[1]];
+    };
+
+    /**
+     * Converts a vector in array form from OpenGL.
+     * @method fromOpenGL
+     * @static
+     * @param v {Array} The array to convert
+     * @return {Array} The OpenGL array
+     */
+    exports.fromOpenGL = function (v) {
+        return [v[0], -v[2], v[1]];
     };
 
 
@@ -60,30 +99,6 @@
         lengthSquared: function (a) {
             return a.lengthSquared();
         }
-    };
-
-
-
-    /**
-     * Converts a vector in array form to OpenGL.
-     * @method toOpenGL
-     * @static
-     * @param v {Array} The array to convert
-     * @return {Array} The OpenGL array
-     */
-    exports.toOpenGL = function (v) {
-        return [v[0], v[2], -v[1]];
-    };
-
-    /**
-     * Converts a vector in array form from OpenGL.
-     * @method fromOpenGL
-     * @static
-     * @param v {Array} The array to convert
-     * @return {Array} The OpenGL array
-     */
-    exports.fromOpenGL = function (v) {
-        return [v[0], -v[2], v[1]];
     };
 
 
@@ -2476,7 +2491,7 @@
     exports.Sector2d.prototype.containsPoint = function(pt) {
         var relPt = pt.sub(this._v);
         if(this._radius2) {
-            if(relPt.squaredLength() > this._radius2) {
+            if(relPt.lengthSquared() > this._radius2) {
                 return false;
             }
         }
@@ -2525,10 +2540,10 @@
     exports.Sector3d.prototype.clone = function () {
         return new exports.Sector2d(
                 this._v, 
-                this._minHorAngle,
-                this._maxHorAngle,
-                this._minVerAngle,
-                this._maxVerAngle,
+                toRange0_2PI(this._minHorAngle),
+                toRange0_2PI(this._maxHorAngle),
+                toRangePI_PI(this._minVerAngle),
+                toRangePI_PI(this._maxVerAngle),
                 this._radius
         );
     };
@@ -2622,7 +2637,7 @@
     exports.Sector3d.prototype.containsPoint = function(pt) {
         var relPt = pt.sub(this._v);
         if(this._radius2) {
-            if(relPt.squaredLength() > this._radius2) {
+            if(relPt.lengthSquared() > this._radius2) {
                 return false;
             }
         }
@@ -2632,7 +2647,7 @@
     /**
      * Creates a string of the sector
      * @method toString
-     * @return {String} Sector2d as string
+     * @return {String} Sector3d as string
      */
     exports.Sector3d.prototype.toString = function () {
         return 'p=' + this._v + ', minHorAngle=' + toRange0_2PI(this._minHorAngle) + ', maxHorAngle=' + toRange0_2PI(this._maxHorAngle) + ', minVerAngle=' + toRange0_2PI(this._minVerAngle) + ', maxVerAngle=' + toRange0_2PI(this._maxVerAngle) + ', radius=' + this._radius;
@@ -2984,7 +2999,7 @@
     /**
      * Returns the distance from the given vector to the line
      * @method distanceTo
-     * @return p {Vector3d} The given vector.
+     * @param p {Vector3d} The given vector.
      * @return {Number} The distance.
      */
     exports.Line3d.prototype.distanceTo = function(p) {
@@ -3079,7 +3094,7 @@
     /**
      * Returns the distance from the given vector to the line
      * @method distanceTo
-     * @return p {Vector3d} The given vector.
+     * @param p {Vector3d} The given vector.
      * @return {Number} The distance.
      */
     exports.Line2d.prototype.distanceTo = function(p) {
