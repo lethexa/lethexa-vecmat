@@ -18,7 +18,7 @@
         return value * 180.0 / Math.PI;
     };
 
-    exports.isExistent = function(value) {
+    exports.isExistent = function (value) {
         return value !== undefined && value !== null;
     };
 
@@ -527,7 +527,7 @@
     exports.vector3dFromOpenGLArray = function (elements) {
         return new exports.Vector3d(
                 elements[0],
-               -elements[2],
+                -elements[2],
                 elements[1]
                 );
     };
@@ -1244,11 +1244,9 @@
             [(this.e22 * this.e23 - this.e23 * this.e32) / d,
                 -(this.e12 * this.e33 - this.e13 * this.e32) / d,
                 (this.e12 * this.e23 - this.e13 * this.e22) / d],
-
             [-(this.e21 * this.e33 - this.e23 * this.e31) / d,
                 (this.e11 * this.e33 - this.e13 * this.e31) / d,
                 -(this.e11 * this.e23 - this.e13 * this.e21) / d],
-
             [(this.e21 * this.e32 - this.e22 * this.e31) / d,
                 -(this.e11 * this.e32 - this.e12 * this.e31) / d,
                 (this.e11 * this.e22 - this.e12 * this.e21) / d]
@@ -1902,10 +1900,10 @@
      */
     exports.Triangle.prototype.clone = function () {
         return new exports.Triangle(
-                this._v1, 
-                this._v2, 
+                this._v1,
+                this._v2,
                 this._v3
-        );
+                );
     };
 
     /**
@@ -1916,10 +1914,10 @@
      */
     exports.Triangle.prototype.round = function (digits) {
         return new exports.Triangle(
-                this._v1.round(digits), 
-                this._v2.round(digits), 
+                this._v1.round(digits),
+                this._v2.round(digits),
                 this._v3.round(digits)
-        );
+                );
     };
 
     /**
@@ -2034,9 +2032,9 @@
      */
     exports.Plane.prototype.clone = function () {
         return new exports.Plane(
-                this._v, 
+                this._v,
                 this._n
-        );
+                );
     };
 
     /**
@@ -2047,9 +2045,9 @@
      */
     exports.Plane.prototype.round = function (digits) {
         return new exports.Plane(
-                this._v.round(digits), 
+                this._v.round(digits),
                 this._n.round(digits)
-        );
+                );
     };
 
     /**
@@ -2147,9 +2145,9 @@
      */
     exports.Box3d.prototype.clone = function () {
         return new exports.Box3d(
-                this._pt1, 
+                this._pt1,
                 this._pt2
-        );
+                );
     };
 
     /**
@@ -2160,9 +2158,9 @@
      */
     exports.Box3d.prototype.round = function (digits) {
         return new exports.Box3d(
-                this._pt1.round(digits), 
+                this._pt1.round(digits),
                 this._pt2.round(digits)
-        );
+                );
     };
 
     /**
@@ -2197,63 +2195,25 @@
     };
 
     /**
-     * Checks if point is contained in this box.
+     * Checks this box intersects the given one.
      * @method containsPoint
-     * @param box {Box2d} The other box.
+     * @param box {Box3d} The other box.
      * @return True the boxes intersect.
      */
     exports.Box3d.prototype.intersects = function (box) {
-        var box2_pt1 = box._pt1;
-        var box2_pt2 = exports.vector2dFromElements(box._pt1.x(), box._pt1.y(), box._pt2.z());
-        var box2_pt3 = exports.vector2dFromElements(box._pt1.x(), box._pt2.y(), box._pt1.z());
-        var box2_pt4 = exports.vector2dFromElements(box._pt1.x(), box._pt2.y(), box._pt2.z());
-        var box2_pt5 = exports.vector2dFromElements(box._pt2.x(), box._pt1.y(), box._pt1.z());
-        var box2_pt6 = exports.vector2dFromElements(box._pt2.x(), box._pt1.y(), box._pt2.z());
-        var box2_pt7 = exports.vector2dFromElements(box._pt2.x(), box._pt2.y(), box._pt1.z());
-        var box2_pt8 = box._pt2;
-        if (this.containsPoint(box2_pt1))
-            return true;
-        if (this.containsPoint(box2_pt2))
-            return true;
-        if (this.containsPoint(box2_pt3))
-            return true;
-        if (this.containsPoint(box2_pt4))
-            return true;
-        if (this.containsPoint(box2_pt5))
-            return true;
-        if (this.containsPoint(box2_pt6))
-            return true;
-        if (this.containsPoint(box2_pt7))
-            return true;
-        if (this.containsPoint(box2_pt8))
-            return true;
-
-        var box1_pt1 = this._pt1;
-        var box1_pt2 = exports.vector2dFromElements(this._pt1.x(), this._pt1.y(), this._pt2.z());
-        var box1_pt3 = exports.vector2dFromElements(this._pt1.x(), this._pt2.y(), this._pt1.z());
-        var box1_pt4 = exports.vector2dFromElements(this._pt1.x(), this._pt2.y(), this._pt2.z());
-        var box1_pt5 = exports.vector2dFromElements(this._pt2.x(), this._pt1.y(), this._pt1.z());
-        var box1_pt6 = exports.vector2dFromElements(this._pt2.x(), this._pt1.y(), this._pt2.z());
-        var box1_pt7 = exports.vector2dFromElements(this._pt2.x(), this._pt2.y(), this._pt1.z());
-        var box1_pt8 = this._pt2;
-        if (box.containsPoint(box1_pt1))
-            return true;
-        if (box.containsPoint(box1_pt2))
-            return true;
-        if (box.containsPoint(box1_pt3))
-            return true;
-        if (box.containsPoint(box1_pt4))
-            return true;
-        if (box.containsPoint(box1_pt5))
-            return true;
-        if (box.containsPoint(box1_pt6))
-            return true;
-        if (box.containsPoint(box1_pt7))
-            return true;
-        if (box.containsPoint(box1_pt8))
-            return true;
-
-        return false;
+        if (this._pt2.x() < box._pt1.x())
+            return false;
+        if (this._pt1.x() > box._pt2.x())
+            return false;
+        if (this._pt2.y() < box._pt1.y())
+            return false;
+        if (this._pt1.y() > box._pt2.y())
+            return false;
+        if (this._pt2.z() < box._pt1.z())
+            return false;
+        if (this._pt1.z() > box._pt2.z())
+            return false;
+        return true;
     };
 
     /**
@@ -2301,9 +2261,9 @@
      */
     exports.Box2d.prototype.clone = function () {
         return new exports.Box2d(
-                this._pt1, 
+                this._pt1,
                 this._pt2
-        );
+                );
     };
 
     /**
@@ -2314,9 +2274,9 @@
      */
     exports.Box2d.prototype.round = function (digits) {
         return new exports.Box2d(
-                this._pt1.round(digits), 
+                this._pt1.round(digits),
                 this._pt2.round(digits)
-        );
+                );
     };
 
     /**
@@ -2349,39 +2309,21 @@
     };
 
     /**
-     * Checks if point is contained in this box.
+     * Checks this box intersects the given one.
      * @method containsPoint
-     * @param box {Box2d} The other box.
+     * @param box {Box3d} The other box.
      * @return True the boxes intersect.
      */
     exports.Box2d.prototype.intersects = function (box) {
-        var box2_pt1 = box._pt1;
-        var box2_pt2 = box._pt2;
-        var box2_pt3 = exports.vector2dFromElements(box._pt1.x(), box._pt2.y());
-        var box2_pt4 = exports.vector2dFromElements(box._pt2.x(), box._pt1.y());
-        if (this.containsPoint(box2_pt1))
-            return true;
-        if (this.containsPoint(box2_pt2))
-            return true;
-        if (this.containsPoint(box2_pt3))
-            return true;
-        if (this.containsPoint(box2_pt4))
-            return true;
-
-        var box1_pt1 = this._pt1;
-        var box1_pt2 = this._pt2;
-        var box1_pt3 = exports.vector2dFromElements(this._pt1.x(), this._pt2.y());
-        var box1_pt4 = exports.vector2dFromElements(this._pt2.x(), this._pt1.y());
-        if (box.containsPoint(box1_pt1))
-            return true;
-        if (box.containsPoint(box1_pt2))
-            return true;
-        if (box.containsPoint(box1_pt3))
-            return true;
-        if (box.containsPoint(box1_pt4))
-            return true;
-
-        return false;
+        if (this._pt2.x() < box._pt1.x())
+            return false;
+        if (this._pt1.x() > box._pt2.x())
+            return false;
+        if (this._pt2.y() < box._pt1.y())
+            return false;
+        if (this._pt1.y() > box._pt2.y())
+            return false;
+        return true;
     };
 
     /**
@@ -2421,11 +2363,11 @@
      */
     exports.Sector2d.prototype.clone = function () {
         return new exports.Sector2d(
-                this._v, 
+                this._v,
                 this._minAngle,
                 this._maxAngle,
                 this._radius
-        );
+                );
     };
 
     /**
@@ -2436,11 +2378,11 @@
      */
     exports.Sector2d.prototype.round = function (digits) {
         return new exports.Sector2d(
-                this._v.round(digits), 
+                this._v.round(digits),
                 round(this._minAngle, digits),
-                round(this._maxAngle, digits), 
+                round(this._maxAngle, digits),
                 this._radius !== undefined ? round(this._radius, digits) : undefined
-        );
+                );
     };
 
     /**
@@ -2468,12 +2410,12 @@
      * @param angle {Number} The angle to test against.
      * @return True if angle in sector.
      */
-    exports.Sector2d.prototype.containsAngle = function(angle) {
+    exports.Sector2d.prototype.containsAngle = function (angle) {
         var minAngle = toRangePI_PI(this._minAngle);
         var maxAngle = toRangePI_PI(this._maxAngle);
         var testAngle = toRangePI_PI(angle);
 
-        if(minAngle < maxAngle) {
+        if (minAngle < maxAngle) {
             // Kein Nulldurchgang...
             return (testAngle >= minAngle) && (testAngle <= maxAngle);
         } else {
@@ -2488,10 +2430,10 @@
      * @param pt {Vector3d} The point to check.
      * @return True if point in sector.
      */
-    exports.Sector2d.prototype.containsPoint = function(pt) {
+    exports.Sector2d.prototype.containsPoint = function (pt) {
         var relPt = pt.sub(this._v);
-        if(this._radius2) {
-            if(relPt.lengthSquared() > this._radius2) {
+        if (this._radius2) {
+            if (relPt.lengthSquared() > this._radius2) {
                 return false;
             }
         }
@@ -2539,13 +2481,13 @@
      */
     exports.Sector3d.prototype.clone = function () {
         return new exports.Sector2d(
-                this._v, 
+                this._v,
                 toRange0_2PI(this._minHorAngle),
                 toRange0_2PI(this._maxHorAngle),
                 toRangePI_PI(this._minVerAngle),
                 toRangePI_PI(this._maxVerAngle),
                 this._radius
-        );
+                );
     };
 
     /**
@@ -2556,13 +2498,13 @@
      */
     exports.Sector3d.prototype.round = function (digits) {
         return new exports.Sector2d(
-                this._v.round(digits), 
+                this._v.round(digits),
                 round(this._minHorAngle, digits),
-                round(this._maxHorAngle, digits), 
+                round(this._maxHorAngle, digits),
                 round(this._minVerAngle, digits),
-                round(this._maxVerAngle, digits), 
+                round(this._maxVerAngle, digits),
                 this._radius !== undefined ? round(this._radius, digits) : undefined
-        );
+                );
     };
 
     /**
@@ -2594,12 +2536,12 @@
      * @param angle {Number} The angle to test against.
      * @return True if angle in sector.
      */
-    exports.Sector3d.prototype.containsHorizontalAngle = function(angle) {
+    exports.Sector3d.prototype.containsHorizontalAngle = function (angle) {
         var minAngle = toRangePI_PI(this._minHorAngle);
         var maxAngle = toRangePI_PI(this._maxHorAngle);
         var testAngle = toRangePI_PI(angle);
 
-        if(minAngle < maxAngle) {
+        if (minAngle < maxAngle) {
             // Kein Nulldurchgang...
             return (testAngle >= minAngle) && (testAngle <= maxAngle);
         } else {
@@ -2614,12 +2556,12 @@
      * @param angle {Number} The angle to test against.
      * @return True if angle in sector.
      */
-    exports.Sector3d.prototype.containsVerticalAngle = function(angle) {
+    exports.Sector3d.prototype.containsVerticalAngle = function (angle) {
         var minAngle = toRangePI_PI(this._minVerAngle);
         var maxAngle = toRangePI_PI(this._maxVerAngle);
         var testAngle = toRangePI_PI(angle);
 
-        if(minAngle < maxAngle) {
+        if (minAngle < maxAngle) {
             // Kein Nulldurchgang...
             return (testAngle >= minAngle) && (testAngle <= maxAngle);
         } else {
@@ -2634,10 +2576,10 @@
      * @param pt {Vector3d} The point to check.
      * @return True if point in sector.
      */
-    exports.Sector3d.prototype.containsPoint = function(pt) {
+    exports.Sector3d.prototype.containsPoint = function (pt) {
         var relPt = pt.sub(this._v);
-        if(this._radius2) {
-            if(relPt.lengthSquared() > this._radius2) {
+        if (this._radius2) {
+            if (relPt.lengthSquared() > this._radius2) {
                 return false;
             }
         }
@@ -2677,9 +2619,9 @@
      */
     exports.Circle2d.prototype.clone = function () {
         return new exports.Circle2d(
-                this._v, 
+                this._v,
                 this._r
-        );
+                );
     };
 
     /**
@@ -2690,9 +2632,9 @@
      */
     exports.Sector2d.prototype.round = function (digits) {
         return new exports.Circle2d(
-                this._v.round(digits), 
+                this._v.round(digits),
                 round(this._r, digits)
-        );
+                );
     };
 
     /**
@@ -2795,9 +2737,9 @@
      */
     exports.Sphere.prototype.clone = function () {
         return new exports.Sphere(
-                this._v, 
+                this._v,
                 this._r
-        );
+                );
     };
 
     /**
@@ -2808,9 +2750,9 @@
      */
     exports.Sphere.prototype.round = function (digits) {
         return new exports.Sphere(
-                this._v.round(digits), 
+                this._v.round(digits),
                 round(this._r, digits)
-        );
+                );
     };
 
     /**
@@ -2955,9 +2897,9 @@
      */
     exports.Line3d.prototype.clone = function () {
         return new exports.Line3d(
-                this._p1, 
+                this._p1,
                 this._p2
-        );
+                );
     };
 
     /**
@@ -2968,9 +2910,9 @@
      */
     exports.Line3d.prototype.round = function (digits) {
         return new exports.Line3d(
-                this._p1.round(digits), 
+                this._p1.round(digits),
                 this._p2.round(digits)
-        );
+                );
     };
 
     /**
@@ -3002,10 +2944,10 @@
      * @param p {Vector3d} The given vector.
      * @return {Number} The distance.
      */
-    exports.Line3d.prototype.distanceTo = function(p) {
+    exports.Line3d.prototype.distanceTo = function (p) {
         var a_sub_p = this._pt1.sub(p);
         var n = this.getDirection();
-        return a_sub_p.sub( n.mulScalar( a_sub_p.dot(n) ) );
+        return a_sub_p.sub(n.mulScalar(a_sub_p.dot(n)));
     };
 
     /**
@@ -3050,9 +2992,9 @@
      */
     exports.Line2d.prototype.clone = function () {
         return new exports.Line2d(
-                this._p1, 
+                this._p1,
                 this._p2
-        );
+                );
     };
 
     /**
@@ -3063,9 +3005,9 @@
      */
     exports.Line2d.prototype.round = function (digits) {
         return new exports.Line2d(
-                this._p1.round(digits), 
+                this._p1.round(digits),
                 this._p2.round(digits)
-        );
+                );
     };
 
     /**
@@ -3097,10 +3039,10 @@
      * @param p {Vector3d} The given vector.
      * @return {Number} The distance.
      */
-    exports.Line2d.prototype.distanceTo = function(p) {
+    exports.Line2d.prototype.distanceTo = function (p) {
         var a_sub_p = this._pt1.sub(p);
         var n = this.getDirection();
-        return a_sub_p.sub( n.mulScalar( a_sub_p.dot(n) ) );
+        return a_sub_p.sub(n.mulScalar(a_sub_p.dot(n)));
     };
 
     /**
@@ -3166,7 +3108,7 @@
      */
     exports.Polygon2d.prototype.round = function (digits) {
         var tgtCorners = [];
-        this._corners.forEach(function(point) {
+        this._corners.forEach(function (point) {
             tgtCorners.push(point.round(digits));
         });
         return new exports.Polygon2d(tgtCorners);
@@ -3179,9 +3121,9 @@
      * @return True if both are equal 
      */
     exports.Polygon2d.prototype.isEqualTo = function (other) {
-        if(this._corners.length !== other._corners.length)
+        if (this._corners.length !== other._corners.length)
             return false;
-        for(var i=0;i<this._corners.length;i++) {
+        for (var i = 0; i < this._corners.length; i++) {
             var corner = this._corners[i];
             var otherCorner = other._corners[i];
             if (!corner.isEqualTo(otherCorner))

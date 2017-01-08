@@ -1251,6 +1251,123 @@ describe('Box3d', function () {
             assert.equal(false, result);
         });
     });
+
+    describe('#intersects()', function () {
+        it('should return true if one box is contained in the other box', function () {
+            var box1 = new vecmat.Box3d(vecmat.vector3dFromElements(5.0, 5.0, 5.0), vecmat.vector3dFromElements(10.0, 10.0, 10.0));
+            var box2 = new vecmat.Box3d(vecmat.vector3dFromElements(6.0, 6.0, 6.0), vecmat.vector3dFromElements(9.0, 9.0, 9.0));
+
+            var result = box1.intersects(box2);
+
+            assert.equal(true, result);
+        });
+    });
+
+    describe('#intersects()', function () {
+        it('should return false if one box is left of the other box', function () {
+            var box1 = new vecmat.Box3d(vecmat.vector3dFromElements(5.0, 5.0, 5.0), vecmat.vector3dFromElements(10.0, 10.0, 10.0));
+            var box2 = new vecmat.Box3d(vecmat.vector3dFromElements(11.0, 11.0, 11.0), vecmat.vector3dFromElements(20.0, 20.0, 20.0));
+
+            var result = box1.intersects(box2);
+
+            assert.equal(false, result);
+        });
+    });
+
+    describe('#intersects()', function () {
+        it('should return true if one box intersects the other box', function () {
+            var box1 = new vecmat.Box3d(vecmat.vector3dFromElements(-5.0, -2.0, -5.0), vecmat.vector3dFromElements(5.0, 2.0, 5.0));
+            var box2 = new vecmat.Box3d(vecmat.vector3dFromElements(-2.0, -5.0, -5.0), vecmat.vector3dFromElements(2.0, 5.0, 5.0));
+
+            var result = box1.intersects(box2);
+
+            assert.equal(true, result);
+        });
+    });
+});
+
+
+
+
+
+describe('Box2d', function () {
+
+    describe('#isEqualTo()', function () {
+        it('should return true if both are equal', function () {
+            var b1 = new vecmat.Box2d(new vecmat.Vector2d(0.0, 0.0), new vecmat.Vector2d(10.0, 10.0));
+            var b2 = new vecmat.Box2d(new vecmat.Vector2d(0.0, 0.0), new vecmat.Vector2d(10.0, 10.0));
+
+            var result = b1.isEqualTo(b2);
+
+            assert.equal(true, result);
+        });
+    });
+
+    describe('#isEqualTo()', function () {
+        it('should return false if both are NOT equal', function () {
+            var b1 = new vecmat.Box2d(vecmat.vector3dFromElements(0.0, 0.0), vecmat.vector2dFromElements(10.0, 10.0));
+            var b2 = new vecmat.Box2d(vecmat.vector3dFromElements(0.0, 0.0), vecmat.vector2dFromElements(20.0, 20.0));
+
+            var result = b1.isEqualTo(b2);
+
+            assert.equal(false, result);
+        });
+    });
+
+    describe('#containsPoint()', function () {
+        it('should return true if point is contained in the box', function () {
+            var box = new vecmat.Box2d(vecmat.vector2dFromElements(5.0, 5.0), vecmat.vector2dFromElements(10.0, 10.0));
+            var pt = vecmat.vector2dFromElements(7.0, 7.0);
+
+            var result = box.containsPoint(pt);
+
+            assert.equal(true, result);
+        });
+    });
+
+    describe('#containsPoint()', function () {
+        it('should return true if point is contained in the box', function () {
+            var box = new vecmat.Box2d(vecmat.vector2dFromElements(5.0, 5.0), vecmat.vector2dFromElements(10.0, 10.0));
+            var pt = vecmat.vector2dFromElements(0.0, 0.0);
+
+            var result = box.containsPoint(pt);
+
+            assert.equal(false, result);
+        });
+    });
+
+    describe('#intersects()', function () {
+        it('should return true if one box is contained in the other box', function () {
+            var box1 = new vecmat.Box2d(vecmat.vector2dFromElements(5.0, 5.0), vecmat.vector2dFromElements(10.0, 10.0));
+            var box2 = new vecmat.Box2d(vecmat.vector2dFromElements(6.0, 6.0), vecmat.vector2dFromElements(9.0, 9.0));
+
+            var result = box1.intersects(box2);
+
+            assert.equal(true, result);
+        });
+    });
+
+    describe('#intersects()', function () {
+        it('should return false if one box is left of the other box', function () {
+            var box1 = new vecmat.Box2d(vecmat.vector2dFromElements(5.0, 5.0), vecmat.vector2dFromElements(10.0, 10.0));
+            var box2 = new vecmat.Box2d(vecmat.vector2dFromElements(11.0, 11.0), vecmat.vector2dFromElements(20.0, 20.0));
+
+            var result = box1.intersects(box2);
+
+            assert.equal(false, result);
+        });
+    });
+
+    describe('#intersects()', function () {
+        it('should return true if one box intersects the other box', function () {
+            var box1 = new vecmat.Box2d(vecmat.vector2dFromElements(-5.0, -2.0), vecmat.vector2dFromElements(5.0, 2.0));
+            var box2 = new vecmat.Box2d(vecmat.vector2dFromElements(-2.0, -5.0), vecmat.vector2dFromElements(2.0, 5.0));
+
+            var result = box1.intersects(box2);
+
+            assert.equal(true, result);
+        });
+    });
 });
 
 
