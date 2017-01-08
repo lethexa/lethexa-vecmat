@@ -1292,6 +1292,30 @@ describe('Box3d', function () {
 
 describe('Box2d', function () {
 
+    describe('#box2dFromElements()', function () {
+        it('should return an initialized box', function () {
+            var box = vecmat.box2dFromElements(0, 0, 10, 10);
+
+            assert.deepEqual(box.toArray(), [0, 0, 10, 10]);
+        });
+    });
+
+    describe('#box2dFromArray()', function () {
+        it('should return an initialized box', function () {
+            var box = vecmat.box2dFromArray([0, 0, 10, 10]);
+
+            assert.deepEqual(box.toArray(), [0, 0, 10, 10]);
+        });
+    });
+
+    describe('#toArray()', function () {
+        it('should return an initialized box', function () {
+            var box = new vecmat.Box2d(new vecmat.Vector2d(0.0, 0.0), new vecmat.Vector2d(10.0, 10.0));
+
+            assert.deepEqual(box.toArray(), [0, 0, 10, 10]);
+        });
+    });
+
     describe('#isEqualTo()', function () {
         it('should return true if both are equal', function () {
             var b1 = new vecmat.Box2d(new vecmat.Vector2d(0.0, 0.0), new vecmat.Vector2d(10.0, 10.0));
