@@ -304,6 +304,16 @@
     };
 
     /**
+     * The squared distance from one vector to another.
+     * @method distanceSquaredTo
+     * @param v {Vector2d} The other vector
+     * @return {Number} The squared distance to the vector
+     */
+    exports.Vector2d.prototype.distanceSquaredTo = function (v) {
+        return v.sub(this).lengthSquared();
+    };
+
+    /**
      * Creates the unit-vector
      * @method unit
      * @return {Vector2d} The unit-vector
@@ -640,6 +650,15 @@
     };
 
     /**
+     * The squared length of the vector
+     * @method lengthSquared
+     * @return {Number} The squared length of the vector
+     */
+    exports.Vector3d.prototype.lengthSquared = function () {
+        return this._x * this._x + this._y * this._y + this._z * this._z;
+    };
+
+    /**
      * The distance from one vector to another.
      * @method distanceTo
      * @param v {Vector3d} The other vector
@@ -650,12 +669,13 @@
     };
 
     /**
-     * The squared length of the vector
-     * @method lengthSquared
-     * @return {Number} The squared length of the vector
+     * The squared distance from one vector to another.
+     * @method distanceSquaredTo
+     * @param v {Vector2d} The other vector
+     * @return {Number} The squared distance to the vector
      */
-    exports.Vector3d.prototype.lengthSquared = function () {
-        return this._x * this._x + this._y * this._y + this._z * this._z;
+    exports.Vector3d.prototype.distanceSquaredTo = function (v) {
+        return v.sub(this).lengthSquared();
     };
 
     /**
