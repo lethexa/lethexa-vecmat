@@ -1706,6 +1706,29 @@ describe('Line2d', function () {
         });
     });
 
+    describe('#intersect()', function () {
+        it('should return a valid positon if two lines intersect', function () {
+            var line1 = new vecmat.Line2d(new vecmat.Vector2d(0.0, 0.0), new vecmat.Vector2d(2.0, 0.0));
+            var line2 = new vecmat.Line2d(new vecmat.Vector2d(1.0, 1.0), new vecmat.Vector2d(1.0, -1.0));
+	    
+            assert.deepEqual(line1.intersect(line2), new vecmat.Vector2d(1.0, 0.0));
+        });
+
+        it('should return undefined one line obove the other line', function () {
+            var line1 = new vecmat.Line2d(new vecmat.Vector2d(0.0, 0.0), new vecmat.Vector2d(2.0, 0.0));
+            var line2 = new vecmat.Line2d(new vecmat.Vector2d(1.0, 3.0), new vecmat.Vector2d(1.0, 1.0));
+	    
+            assert.deepEqual(line1.intersect(line2), undefined);
+        });
+
+        it('should return undefined one line below the other line', function () {
+            var line1 = new vecmat.Line2d(new vecmat.Vector2d(0.0, 0.0), new vecmat.Vector2d(2.0, 0.0));
+            var line2 = new vecmat.Line2d(new vecmat.Vector2d(1.0, -1.0), new vecmat.Vector2d(1.0, -3.0));
+	    
+            assert.deepEqual(line1.intersect(line2), undefined);
+        });
+    });
+
 });
 
 
