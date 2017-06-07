@@ -643,6 +643,19 @@ describe('Quat', function () {
         });
     });
 
+    describe('#toEulerAngles()', function () {
+        it('should return the euler angles for a given quaternion', function () {
+            var phi = 0.0;
+            var theta = round(45.0 * Math.PI / 180.0, 3);
+            var psi = 0.0;
+
+	    var result = vecmat.quatFromEulerAngles(phi, theta, psi).toEulerAngles();
+	    var expected = [phi, theta, psi];
+		
+            assert.deepEqual(expected, result);
+        });
+    });
+
     describe('#shortestArcQuat()', function () {
         it('should return the shortest arc quat between two vectors 1', function () {
             var v1 = new vecmat.Vector3d(1.0, 0.0, 0.0);
