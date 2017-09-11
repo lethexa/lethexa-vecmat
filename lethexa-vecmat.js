@@ -1036,6 +1036,36 @@
     };
 
     /**
+     * Creates a Matrix from the axises of a coordinate system.
+     * 
+     * @param {Vector3d} r Right
+     * @param {Vector3d} u Up
+     * @param {Vector3d} f Front
+     */
+    exports.matrix3x3FromColumnVectors = function(r, u, f) {
+        return exports.matrix3x3FromArray([
+            [r.x(), u.x(), f.x()],
+            [r.y(), u.y(), f.y()],
+            [r.z(), u.z(), f.z()]
+        ]);
+    };
+
+    /**
+     * Creates a Matrix from the axises of a coordinate system.
+     * 
+     * @param {Vector3d} r Right
+     * @param {Vector3d} u Up
+     * @param {Vector3d} f Front
+     */
+    exports.matrix3x3FromRowVectors = function(r, u, f) {
+        return exports.matrix3x3FromArray([
+            r.toArray(),
+            u.toArray(),
+            f.toArray()
+        ]);
+    };
+
+    /**
      * Creates a unit matrix array
      * @method makeUnitMatrix3x3
      * @for Matrix3x3

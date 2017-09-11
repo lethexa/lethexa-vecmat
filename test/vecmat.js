@@ -419,6 +419,35 @@ describe('Vector3d', function () {
 
 
 describe('Matrix3x3', function () {
+
+    describe('#matrix3x3FromColumnVectors()', function () {
+        describe('when providing three vectors along the default-axis building a coordsys', function () {
+            it('should return a unit matrix', function () {
+                var v1 = vecmat.vector3dFromElements(1,0,0);
+                var v2 = vecmat.vector3dFromElements(0,1,0);
+                var v3 = vecmat.vector3dFromElements(0,0,1);
+                var m = vecmat.matrix3x3FromColumnVectors(v1, v2, v3);
+                assert.deepEqual(m, vecmat.makeUnitMatrix3x3());
+            });
+        });
+
+        describe('when providing three vectors NOT along the default-axis building a coordsys', function () {
+            it('should return the correct rotation matrix', function () {
+                var v1 = vecmat.vector3dFromElements(-1,1,0).unit();
+                var v2 = vecmat.vector3dFromElements(1,1,0).unit();
+                var v3 = vecmat.vector3dFromElements(0,0,1).unit();
+                var m = vecmat.matrix3x3FromColumnVectors(v1, v2, v3);
+                var angleX = 180.0 * m.phi() / Math.PI;
+                var angleY = 180.0 * m.theta() / Math.PI;
+                var angleZ = 180.0 * m.psi() / Math.PI;
+
+                assert.equal(angleX, 0.0);
+                assert.equal(angleY, 0.0);
+                assert.equal(angleZ, 135.0);
+            });
+        });
+    });
+    
     describe('#mulScalar()', function () {
         it('multiply a matrix with a skalar', function () {
             var m = vecmat.matrix3x3FromArray([[1,0,0],[0,1,0],[0,0,1]]);
