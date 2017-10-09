@@ -1114,6 +1114,22 @@
     };
 
     /**
+     * Creates a Matrix from the axis of a coordinatesystem.
+     * 
+     * @param {Vector3d} r Right unit vector.
+     * @param {Vector3d} u Up unit vector.
+     * @param {Vector3d} f Front unit vector.
+     * @return The rotationmatrix into the coordinatesystem.
+     */
+    exports.makeMatrix3x3From3Axis = function(r, u, f) {
+        return vecmat.matrix3x3FromArray([
+            [r.x(), u.x(), f.x()],
+            [r.y(), u.y(), f.y()],
+            [r.z(), u.z(), f.z()]
+        ]);
+    };
+
+    /**
      * Creates a transformation-matrix (local to global) from euler angles
      * @method toGlobalMatrix3x3
      * @for Matrix3x3
