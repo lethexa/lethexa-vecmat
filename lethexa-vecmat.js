@@ -475,6 +475,16 @@
     };
 
     /**
+     * Calculates the mean value of two vectors
+     * @method mean
+     * @param b {Vector2d} The other vector.
+     * @return {Number} The resulting mean vector.
+     */
+    exports.Vector2d.prototype.mean = function (b) {
+        return (this.add(b)).mulScalar(0.5);
+    };
+
+    /**
      * Converts the vector to an array
      * @method toArray
      * @return {Array} The array
@@ -945,6 +955,16 @@
      */
     exports.Vector3d.prototype.spat = function (b, c) {
         return this.dot(b.cross(c));
+    };
+
+    /**
+     * Calculates the mean value of two vectors
+     * @method mean
+     * @param b {Vector3d} The other vector.
+     * @return {Number} The resulting mean vector.
+     */
+    exports.Vector3d.prototype.mean = function (b) {
+        return (this.add(b)).mulScalar(0.5);
     };
 
     /**
