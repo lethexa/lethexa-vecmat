@@ -1122,7 +1122,7 @@
      * @return The rotationmatrix into the coordinatesystem.
      */
     exports.makeMatrix3x3From3Axis = function(r, u, f) {
-        return vecmat.matrix3x3FromArray([
+        return exports.matrix3x3FromArray([
             [r.x(), u.x(), f.x()],
             [r.y(), u.y(), f.y()],
             [r.z(), u.z(), f.z()]

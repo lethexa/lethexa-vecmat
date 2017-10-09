@@ -1,6 +1,6 @@
 { 
   "name": "lethexa-vecmat",
-  "version": "1.2.32",
+  "version": "1.2.33",
   "description": "Vector/matrix/quaternion calculations",
   "main": "index.js",
   "author": {
