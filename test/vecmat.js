@@ -2020,6 +2020,53 @@ describe('Polygon2d', function () {
             assert.equal(true, points[4].isEqualTo(boundingPoly[3]));
         });
     });
+
+    describe('#isClockwise()', function () {
+        it('should return true for a clockwise polygon', function () {
+            var points = [
+                new vecmat.Vector2d(1,0),
+                new vecmat.Vector2d(1,5),
+                new vecmat.Vector2d(4,5),
+                new vecmat.Vector2d(6,4),
+                new vecmat.Vector2d(5,0)
+            ];
+            var poly = new vecmat.Polygon2d(points);
+            assert.equal(true, poly.isClockwise());
+        });
+    });
+
+    describe('#isClockwise()', function () {
+        it('should return false for a counterclockwise polygon', function () {
+            var points = [
+                new vecmat.Vector2d(5,0),
+                new vecmat.Vector2d(6,4),
+                new vecmat.Vector2d(4,5),
+                new vecmat.Vector2d(1,5),
+                new vecmat.Vector2d(1,0)
+            ];
+            var poly = new vecmat.Polygon2d(points);
+            assert.equal(false, poly.isClockwise());
+        });
+    });
+
+    describe('#reverse()', function () {
+        it('should return the reverse of a polygon', function () {
+            var points = [
+                new vecmat.Vector2d(1,0),
+                new vecmat.Vector2d(1,5),
+                new vecmat.Vector2d(4,5),
+                new vecmat.Vector2d(6,4),
+                new vecmat.Vector2d(5,0)
+            ];
+            var poly = new vecmat.Polygon2d(points);
+            var reversedCorners = poly.reverse().getCorners();
+            assert.equal(points[0], reversedCorners[4]);
+            assert.equal(points[1], reversedCorners[3]);
+            assert.equal(points[2], reversedCorners[2]);
+            assert.equal(points[3], reversedCorners[1]);
+            assert.equal(points[4], reversedCorners[0]);
+        });
+    });
 });
 
 
